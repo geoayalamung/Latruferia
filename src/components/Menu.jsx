@@ -15,12 +15,12 @@ function Menu() {
       <div className="container">
         <div className="section-head compact-head">
           <h3>Menú</h3>
-          <p>Elige tu categoría y arma tu pedido en minutos.</p>
+          <p>Consulta sabores, precios y elige si lo quieres individual, en paquete o para evento.</p>
         </div>
 
         <div className="menu-shell">
           <div className="combo-strip" role="note">
-            <strong>Combo destacado:</strong> Cajitas con 20 piezas — $140
+            <strong>Opciones de compra:</strong> Individuales, cajita de 20 piezas ($140) o pedidos para evento.
           </div>
 
           <div className="menu-tabs" role="tablist" aria-label="Categorías del menú">
@@ -34,7 +34,7 @@ function Menu() {
                 onClick={() => setActiveCategory(group.category)}
               >
                 <span>{group.category}</span>
-                <small>{group.items.length}</small>
+                <small>{group.items.length} prod.</small>
               </button>
             ))}
           </div>
@@ -44,10 +44,18 @@ function Menu() {
               <h4>{activeGroup.category}</h4>
               <span>{items.length} opciones</span>
             </div>
+            <div className="menu-feature">
+              <div className="menu-feature-media">
+                <img src={activeGroup.image} alt={activeGroup.imageAlt} loading="lazy" />
+              </div>
+              <div className="menu-feature-copy">
+                <p>{activeGroup.description}</p>
+              </div>
+            </div>
             <div className="menu-list">
               {items.map((item) => (
                 <div className="menu-item" key={item.name}>
-                  <div>
+                  <div className="menu-item-copy">
                     <p>{item.name}</p>
                     {item.badge ? <span className="badge">{item.badge}</span> : null}
                   </div>

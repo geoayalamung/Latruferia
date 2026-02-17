@@ -4,6 +4,7 @@ const whatsappNumber = '523535367398';
 
 const initialState = {
   nombre: '',
+  tipoPedido: '',
   pedido: '',
   fecha: '',
   notas: ''
@@ -23,6 +24,7 @@ function Pedidos() {
     const nextErrors = {};
 
     if (!formData.nombre.trim()) nextErrors.nombre = 'Escribe tu nombre.';
+    if (!formData.tipoPedido.trim()) nextErrors.tipoPedido = 'Selecciona el tipo de pedido.';
     if (!formData.pedido.trim()) nextErrors.pedido = 'Indica qué deseas pedir.';
     if (!formData.fecha.trim()) nextErrors.fecha = 'Selecciona una fecha de entrega/evento.';
 
@@ -38,7 +40,7 @@ function Pedidos() {
       return;
     }
 
-    const message = `Hola La Trufería, soy ${formData.nombre}. Quiero pedir: ${formData.pedido}. Fecha: ${formData.fecha}. Notas: ${formData.notas || 'Sin notas'}.`;
+    const message = `Hola La Trufería, soy ${formData.nombre}. Tipo de pedido: ${formData.tipoPedido}. Quiero pedir: ${formData.pedido}. Fecha: ${formData.fecha}. Notas: ${formData.notas || 'Sin notas'}.`;
     const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
     window.open(url, '_blank', 'noopener,noreferrer');
@@ -85,6 +87,21 @@ function Pedidos() {
               aria-invalid={Boolean(errors.nombre)}
             />
             {errors.nombre ? <small className="field-error">{errors.nombre}</small> : null}
+
+            <label htmlFor="tipoPedido">Tipo de pedido</label>
+            <select
+              id="tipoPedido"
+              name="tipoPedido"
+              value={formData.tipoPedido}
+              onChange={handleChange}
+              aria-invalid={Boolean(errors.tipoPedido)}
+            >
+              <option value="">Selecciona una opción</option>
+              <option value="Individual">Individual</option>
+              <option value="Paquete chico">Paquete chico</option>
+              <option value="Evento">Evento</option>
+            </select>
+            {errors.tipoPedido ? <small className="field-error">{errors.tipoPedido}</small> : null}
 
             <label htmlFor="pedido">¿Qué quieres pedir?</label>
             <input

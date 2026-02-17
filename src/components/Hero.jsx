@@ -1,15 +1,20 @@
 const whatsappLink =
   'https://wa.me/523535367398?text=Hola%20La%20Trufer%C3%ADa%2C%20quiero%20hacer%20un%20pedido';
 
-const bestStrip = [
-  'Trufitas Oreo $7 c/u',
-  'Mini donitas $5 c/u',
-  'Tarta con fruta $450'
-];
-
 function Hero() {
   return (
     <section className="hero" id="inicio">
+      <video
+        className="hero-video"
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden="true"
+        poster="/Images/Trufas/trufas.jpg"
+      >
+        <source src="/bg-trufas.mp4" type="video/mp4" />
+      </video>
       <div className="hero-overlay" />
       <div className="container hero-grid">
         <div className="hero-content">
@@ -32,13 +37,8 @@ function Hero() {
           </div>
         </div>
 
-        <aside className="mini-strip" aria-label="Best sellers">
-          <p>Best sellers</p>
-          <ul>
-            {bestStrip.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
+        <aside className="hero-logo-wrap" aria-label="La Truferia logo">
+          <img className="hero-logo" src="/Images/la-truferia-logo.png" alt="La Truferia" />
         </aside>
       </div>
     </section>

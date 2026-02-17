@@ -3,20 +3,20 @@ const bestSellers = [
     title: 'Trufitas surtidas',
     description: 'Chocolate suave con sabores clásicos para regalar.',
     price: '$7 c/u',
-    image: '/public/Images/trufas.jpg',
+    image: '/public/Images/Trufas/trufas.jpg',
     badge: 'Recomendado'
   },
   {
     title: 'Mini donitas rellenas',
     description: 'Cubiertas de chocolate, tiernas y súper antojables.',
     price: '$5 c/u',
-    image: '/public/Images/mindonas1.png'
+    image: '/public/Images/MiniDonas/mindonas1.png'
   },
   {
     title: 'Tarta con fruta grande',
     description: 'Presentación premium para celebraciones especiales.',
     price: '$450',
-    image: '/public/Images/tarta.png',
+    image: '/public/Images/Tartas/tarta.png',
     badge: 'Recomendado'
   }
 ];

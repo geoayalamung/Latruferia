@@ -31,10 +31,20 @@ function Navbar() {
           </li>
         </ul>
 
-        <a className="btn btn-small" href={whatsappLink} target="_blank" rel="noreferrer">
+        <a className="btn btn-small nav-cta" href={whatsappLink} target="_blank" rel="noreferrer">
           Pedir por WhatsApp
         </a>
       </nav>
+
+      <div className="mobile-quick-nav container" aria-label="Accesos rápidos móvil">
+        <a href="#inicio">Inicio</a>
+        <a href="#menu">Menú</a>
+        <a href="#galeria">Galería</a>
+        <a href="#paquetes">Paquetes</a>
+        <a href="#pedidos">Pedidos</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+
     </header>
   );
 }

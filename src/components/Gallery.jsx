@@ -1,13 +1,13 @@
 const galleryItems = [
-  '/public/Images/mindonas1.png',
-  '/public/Images/corazontrufas.png',
-  '/public/Images/tartas.png',
-  'public/Images/trufasnavidad.png',
-  '/public/Images/trufas.jpg',
-  '/public/Images/mindonas2.png',
-  'public/Images/tartaskiwi.png',
-  'public/Images/trufasmix.png',
-  'public/Images/trufaspink.png',
+  '/public/Images/MiniDonas/mindonas1.png',
+  '/public/Images/Trufas/corazontrufas.png',
+  '/public/Images/Tartas/tartas.png',
+  'public/Images/Trufas/trufasnavidad.png',
+  '/public/Images/Trufas/trufas.jpg',
+  '/public/Images/MiniDonas/mindonas2.png',
+  'public/Images/Tartas/tartaskiwi.png',
+  'public/Images/Trufas/trufasmix.png',
+  'public/Images/Trufas/trufaspink.png',
 
 ];
 

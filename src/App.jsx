@@ -5,6 +5,7 @@ import Gallery from './components/Gallery';
 import Menu from './components/Menu';
 import Historia from './components/Historia';
 import Paquetes from './components/Paquetes';
+import Eventos from './components/Eventos';
 import Reviews from './components/Reviews';
 import Pedidos from './components/Pedidos';
 import Contacto from './components/Contacto';
@@ -19,14 +20,15 @@ function App() {
       <Navbar />
       <main>
         <Hero />
-        <BestSellers />
-        <Gallery />
-        <Historia />
-        <Menu />
-        <Paquetes />
-        <Reviews />
-        <Pedidos />
-        <Contacto />
+        <div className="section-wrap"><BestSellers /></div>
+        <div className="section-wrap"><Gallery /></div>
+        <div className="section-wrap"><Historia /></div>
+        <div className="section-wrap"><Menu /></div>
+        <div className="section-wrap"><Paquetes /></div>
+        <div className="section-wrap"><Eventos /></div>
+        <div className="section-wrap"><Reviews /></div>
+        <div className="section-wrap"><Pedidos /></div>
+        <div className="section-wrap"><Contacto /></div>
       </main>
       <Footer />
     </div>
@@ -68,14 +70,49 @@ const appStyles = `
 
 html {
   scroll-behavior: smooth;
+  min-height: 100%;
 }
 
 body {
   margin: 0;
   font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
-  background: var(--bg);
+  min-height: 100vh;
+  position: relative;
+  isolation: isolate;
+  background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(245, 228, 235, 0.17) 0 36px,
+      rgba(251, 242, 234, 0.13) 36px 72px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(226, 209, 233, 0.2) 0 36px,
+      rgba(249, 239, 251, 0.14) 36px 72px
+    ),
+    linear-gradient(180deg, rgba(255, 252, 248, 0.36), rgba(247, 237, 241, 0.24)),
+    linear-gradient(135deg, #fffdf8 0%, #faefe8 46%, #fffefc 100%);
+  background-repeat: repeat;
+  background-size: auto;
+  background-attachment: fixed;
+  background-blend-mode: multiply, multiply, normal, normal;
   color: var(--text);
   line-height: 1.5;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: -32px;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 110% at 8% 12%, rgba(255, 252, 248, 0.36), transparent 58%),
+    radial-gradient(110% 120% at 92% 20%, rgba(236, 214, 242, 0.18), transparent 60%),
+    linear-gradient(180deg, rgba(255, 252, 248, 0.14), rgba(255, 252, 248, 0.04));
+  filter: blur(12px);
+  transform: translateZ(0);
 }
 
 a {
@@ -106,7 +143,8 @@ img {
 
 .btn {
   border: 1px solid transparent;
-  background: linear-gradient(140deg, var(--lavender-300), var(--lavender-200));
+  background: linear-gradient(135deg, var(--lavender-300), #dcc5e8, var(--lavender-200));
+  background-size: 180% 180%;
   color: var(--choco-900);
   border-radius: 999px;
   font-weight: 700;
@@ -114,13 +152,67 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
-  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.38s cubic-bezier(.22,.61,.36,1), box-shadow 0.38s cubic-bezier(.22,.61,.36,1), border-color 0.3s ease, background-position 0.6s ease;
+  box-shadow: 0 8px 20px rgba(74, 42, 31, 0.1);
+  animation: btnAura 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: -140% 58% -140% -120%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.52), transparent);
+  transform: rotate(20deg);
+  transition: transform 0.75s cubic-bezier(.22,.61,.36,1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 18% 28%, rgba(255, 255, 255, 0.24), transparent 44%),
+    radial-gradient(circle at 82% 80%, rgba(236, 214, 242, 0.2), transparent 48%);
+  opacity: 0.46;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 0;
 }
 
 .btn:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lift);
+  transform: translateY(-1px) scale(1.01);
+  border-color: rgba(199, 160, 214, 0.56);
+  background-position: 100% 0;
+  box-shadow: 0 0 0 2px rgba(226, 196, 236, 0.2), 0 14px 28px rgba(74, 42, 31, 0.12);
+}
+
+.btn:hover::before {
+  transform: translateX(165%) rotate(20deg);
+}
+
+.btn:hover::after {
+  opacity: 0.62;
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.995);
+}
+
+@keyframes btnAura {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .btn-ghost {
@@ -153,6 +245,24 @@ img {
   padding: 4.2rem 0;
 }
 
+.section-wrap {
+  width: min(1240px, calc(100% - 1.2rem));
+  margin-inline: auto;
+  margin-top: clamp(0.65rem, 1.8vw, 1.2rem);
+}
+
+.section-wrap > .section {
+  border: 1px solid rgba(199, 160, 214, 0.28);
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.42));
+  box-shadow: 0 8px 22px rgba(74, 42, 31, 0.08);
+  overflow: hidden;
+}
+
+.section-wrap > .section.section-tint {
+  background: linear-gradient(180deg, rgba(245, 236, 247, 0.45), rgba(255, 255, 255, 0.5));
+}
+
 .section-tint {
   background: linear-gradient(180deg, transparent, var(--lavender-50) 18%, transparent);
 }
@@ -179,7 +289,7 @@ img {
   line-height: 1.04;
   padding: 0.4rem 1rem 0.5rem;
   border: 4px dotted;
-  border-color: var(--sprinkle-pink) var(--sprinkle-yellow) var(--sprinkle-blue) var(--sprinkle-pink);
+  border-color: var(--lavender-300);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.72);
 }
@@ -225,6 +335,15 @@ textarea:focus-visible {
 }
 
 @media (max-width: 760px) {
+  .section-wrap {
+    width: min(1240px, calc(100% - 0.9rem));
+    margin-top: 0.62rem;
+  }
+
+  .section-wrap > .section {
+    border-radius: 18px;
+  }
+
   .container {
     width: min(1160px, calc(100% - 1.3rem));
   }

@@ -78,7 +78,7 @@ const heroStyles = `
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(74, 42, 31, 0.78) 18%, rgba(74, 42, 31, 0.46) 58%, rgba(74, 42, 31, 0.24));
+  background: linear-gradient(90deg, rgba(74, 42, 31, 0.6) 18%, rgba(74, 42, 31, 0.34) 58%, rgba(74, 42, 31, 0.16));
   z-index: 1;
 }
 
@@ -96,15 +96,21 @@ const heroStyles = `
   margin: 0;
   max-width: 14ch;
   color: #fff;
+  font-family: inherit;
+  font-weight: 700;
   font-size: clamp(2.1rem, 5.2vw, 4rem);
   line-height: 1.05;
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 .hero-copy {
   margin: 0.95rem 0 1.45rem;
   max-width: 42ch;
   color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-title);
+  font-weight: 400;
+  letter-spacing: 0.01em;
   font-size: clamp(1rem, 2.1vw, 1.25rem);
 }
 

@@ -34,7 +34,7 @@ function Historia() {
         >
           <div className="container">
             <div className="story-shell">
-              <header className="story-head">
+              <header className="story-head section-head compact-head">
 
                 <div className="story-headline-row">
                   <h2 id="historia-title" className="story-title">
@@ -144,7 +144,7 @@ const historiaStyles = `
 .story-head {
   display: grid;
   gap: 0.85rem;
-  margin-bottom: clamp(1.2rem, 2.4vw, 1.7rem);
+  margin-bottom: clamp(1rem, 2.2vw, 1.5rem);
 }
 
 .story-kicker {
@@ -184,20 +184,7 @@ const historiaStyles = `
 }
 
 .story-title {
-  display: inline-block;
-  margin: 0;
-  font-size: clamp(1.85rem, 3.6vw, 2.55rem);
-  line-height: 1.12;
-  color: var(--choco-900);
-  letter-spacing: -0.015em;
   max-width: 22ch;
-  font-family: var(--font-title);
-  font-weight: 400;
-  padding: 0.4rem 1rem 0.5rem;
-  border: 4px dotted;
-  border-color: var(--sprinkle-pink) var(--sprinkle-yellow) var(--sprinkle-blue) var(--sprinkle-pink);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
 }
 
 .story-badge {

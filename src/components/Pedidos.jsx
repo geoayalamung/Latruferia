@@ -59,19 +59,22 @@ function Pedidos() {
 
         <div className="steps-row" aria-label="Cómo pedir">
           <article className="step-card">
+            <span className="step-number">01</span>
             <span className="step-icon icon-one" aria-hidden="true" />
             <strong>Elige</strong>
-            <p>Selecciona postres o paquete.</p>
+            <p>Cuéntanos qué se te antoja y te guiamos a la mejor opción.</p>
           </article>
           <article className="step-card">
+            <span className="step-number">02</span>
             <span className="step-icon icon-two" aria-hidden="true" />
             <strong>Confirma</strong>
-            <p>Define cantidades y fecha.</p>
+            <p>Definimos cantidad, diseño y fecha para que todo salga perfecto.</p>
           </article>
           <article className="step-card">
+            <span className="step-number">03</span>
             <span className="step-icon icon-three" aria-hidden="true" />
             <strong>Recoge o entrega</strong>
-            <p>Coordinamos para que llegue perfecto.</p>
+            <p>Recibe tu pedido listo para lucirse en tu evento o regalo.</p>
           </article>
         </div>
 
@@ -79,70 +82,81 @@ function Pedidos() {
           <form className="card order-form" onSubmit={handleSubmit} noValidate>
             <h4>Pedido rápido</h4>
             <p className="helper-text">Completa los datos y te abrimos WhatsApp con tu mensaje listo.</p>
+            <div className="order-form-grid">
+              <div className="field">
+                <label htmlFor="nombre">Nombre</label>
+                <input
+                  id="nombre"
+                  name="nombre"
+                  type="text"
+                  value={formData.nombre}
+                  onChange={handleChange}
+                  aria-invalid={Boolean(errors.nombre)}
+                />
+                {errors.nombre ? <small className="field-error">{errors.nombre}</small> : null}
+              </div>
 
-            <label htmlFor="nombre">Nombre</label>
-            <input
-              id="nombre"
-              name="nombre"
-              type="text"
-              value={formData.nombre}
-              onChange={handleChange}
-              aria-invalid={Boolean(errors.nombre)}
-            />
-            {errors.nombre ? <small className="field-error">{errors.nombre}</small> : null}
+              <div className="field">
+                <label htmlFor="tipoPedido">Tipo de pedido</label>
+                <select
+                  id="tipoPedido"
+                  name="tipoPedido"
+                  value={formData.tipoPedido}
+                  onChange={handleChange}
+                  aria-invalid={Boolean(errors.tipoPedido)}
+                >
+                  <option value="">Selecciona una opción</option>
+                  <option value="Individual">Individual</option>
+                  <option value="Paquete chico">Paquete chico</option>
+                  <option value="Evento">Evento</option>
+                </select>
+                {errors.tipoPedido ? <small className="field-error">{errors.tipoPedido}</small> : null}
+              </div>
 
-            <label htmlFor="tipoPedido">Tipo de pedido</label>
-            <select
-              id="tipoPedido"
-              name="tipoPedido"
-              value={formData.tipoPedido}
-              onChange={handleChange}
-              aria-invalid={Boolean(errors.tipoPedido)}
-            >
-              <option value="">Selecciona una opción</option>
-              <option value="Individual">Individual</option>
-              <option value="Paquete chico">Paquete chico</option>
-              <option value="Evento">Evento</option>
-            </select>
-            {errors.tipoPedido ? <small className="field-error">{errors.tipoPedido}</small> : null}
+              <div className="field">
+                <label htmlFor="pedido">¿Qué quieres pedir?</label>
+                <select
+                  id="pedido"
+                  name="pedido"
+                  value={formData.pedido}
+                  onChange={handleChange}
+                  aria-invalid={Boolean(errors.pedido)}
+                >
+                  <option value="">Selecciona una opción</option>
+                  <option value="Trufas">Trufas</option>
+                  <option value="Tartas">Tartas</option>
+                  <option value="Minidonas">Minidonas</option>
+                  <option value="Gelatinas">Gelatinas</option>
+                  <option value="Panesitos">Panesitos</option>
+                  <option value="Besos de Nuez">Besos de Nuez</option>
+                </select>
+                {errors.pedido ? <small className="field-error">{errors.pedido}</small> : null}
+              </div>
 
-            <label htmlFor="pedido">¿Qué quieres pedir?</label>
-            <select
-              id="pedido"
-              name="pedido"
-              value={formData.pedido}
-              onChange={handleChange}
-              aria-invalid={Boolean(errors.pedido)}
-            >
-              <option value="">Selecciona una opción</option>
-              <option value="Trufas">Trufas</option>
-              <option value="Tartas">Tartas</option>
-              <option value="Minidonas">Minidonas</option>
-              <option value="Gelatinas">Gelatinas</option>
-              <option value="Panesitos">Panesitos</option>
-              <option value="Besos de Nuez">Besos de Nuez</option>
-            </select>
-            {errors.pedido ? <small className="field-error">{errors.pedido}</small> : null}
+              <div className="field">
+                <label htmlFor="fecha">Fecha del evento/entrega</label>
+                <input
+                  id="fecha"
+                  name="fecha"
+                  type="date"
+                  value={formData.fecha}
+                  onChange={handleChange}
+                  aria-invalid={Boolean(errors.fecha)}
+                />
+                {errors.fecha ? <small className="field-error">{errors.fecha}</small> : null}
+              </div>
 
-            <label htmlFor="fecha">Fecha del evento/entrega</label>
-            <input
-              id="fecha"
-              name="fecha"
-              type="date"
-              value={formData.fecha}
-              onChange={handleChange}
-              aria-invalid={Boolean(errors.fecha)}
-            />
-            {errors.fecha ? <small className="field-error">{errors.fecha}</small> : null}
-
-            <label htmlFor="notas">Notas (opcional)</label>
-            <textarea
-              id="notas"
-              name="notas"
-              rows="4"
-              value={formData.notas}
-              onChange={handleChange}
-            />
+              <div className="field field-span-2">
+                <label htmlFor="notas">Notas (opcional)</label>
+                <textarea
+                  id="notas"
+                  name="notas"
+                  rows="3"
+                  value={formData.notas}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
 
             <button type="submit" className="btn btn-block">
               Enviar por WhatsApp
@@ -172,33 +186,50 @@ const pedidosStyles = `
 .steps-row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+  gap: 0.62rem;
+  margin-bottom: 0.82rem;
 }
 
 .step-card {
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 16px;
   background: var(--surface);
-  padding: 0.95rem;
+  padding: 0.72rem 0.76rem;
   box-shadow: var(--shadow-soft);
+  display: grid;
+  gap: 0.22rem;
+  align-content: start;
+  position: relative;
 }
 
 .step-card strong {
   color: var(--choco-900);
+  font-size: 0.95rem;
 }
 
 .step-card p {
-  margin: 0.4rem 0 0;
+  margin: 0.08rem 0 0;
   color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.step-number {
+  position: absolute;
+  top: 0.52rem;
+  right: 0.58rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: var(--lavender-300);
 }
 
 .step-icon {
   display: inline-flex;
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   border-radius: 999px;
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.28rem;
   border: 1px solid var(--border);
 }
 
@@ -216,13 +247,29 @@ const pedidosStyles = `
 
 .pedidos-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  grid-template-columns: 1.35fr 0.95fr;
+  gap: 0.82rem;
+  align-items: start;
 }
 
 .order-form {
   display: grid;
-  gap: 0.55rem;
+  gap: 0.62rem;
+}
+
+.order-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.52rem 0.62rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.28rem;
+}
+
+.field-span-2 {
+  grid-column: 1 / -1;
 }
 
 .order-form h4,
@@ -234,45 +281,51 @@ const pedidosStyles = `
 .helper-text {
   margin: 0;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.86rem;
+}
+
+.order-aside {
+  display: grid;
+  gap: 0.62rem;
+  align-content: start;
 }
 
 .order-aside ul {
-  margin: 0.6rem 0 0;
-  padding-left: 1.1rem;
+  margin: 0.1rem 0 0;
+  padding-left: 1rem;
   color: var(--muted);
 }
 
 .order-aside li + li {
-  margin-top: 0.4rem;
+  margin-top: 0.3rem;
 }
 
 .order-form label {
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--choco-800);
 }
 
-input,
-select,
-textarea {
+.order-form input,
+.order-form select,
+.order-form textarea {
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 0.64rem 0.72rem;
+  border-radius: 12px;
+  padding: 0.58rem 0.66rem;
   font: inherit;
   background: var(--surface);
   color: var(--text);
 }
 
-textarea {
-  min-height: 95px;
+.order-form textarea {
+  min-height: 82px;
   resize: vertical;
 }
 
 .field-error {
   color: #a32626;
-  font-size: 0.82rem;
-  margin-top: -0.18rem;
+  font-size: 0.78rem;
+  margin-top: -0.1rem;
 }
 
 @media (max-width: 1024px) {
@@ -283,17 +336,34 @@ textarea {
 
 @media (max-width: 760px) {
   .steps-row {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding-bottom: 0.18rem;
+  }
+
+  .step-card {
+    min-width: 170px;
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+  }
+
+  .order-form-grid {
     grid-template-columns: 1fr;
   }
 
-  input,
-  textarea,
-  button {
+  .field-span-2 {
+    grid-column: auto;
+  }
+
+  .order-form input,
+  .order-form textarea,
+  .order-form button {
     font-size: 16px;
   }
 
-  input,
-  textarea {
+  .order-form input,
+  .order-form textarea {
     min-height: 46px;
   }
 }

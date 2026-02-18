@@ -11,6 +11,7 @@ const initialState = {
 };
 
 function Pedidos() {
+
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
 
@@ -47,6 +48,8 @@ function Pedidos() {
   };
 
   return (
+    <>
+      <style>{pedidosStyles}</style>
     <section className="section" id="pedidos">
       <div className="container">
         <div className="section-head compact-head">
@@ -150,7 +153,143 @@ function Pedidos() {
         </div>
       </div>
     </section>
+    </>
   );
 }
 
 export default Pedidos;
+
+
+const pedidosStyles = `
+
+.steps-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.step-card {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface);
+  padding: 0.95rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.step-card strong {
+  color: var(--choco-900);
+}
+
+.step-card p {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+}
+
+.step-icon {
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  margin-bottom: 0.65rem;
+  border: 1px solid var(--border);
+}
+
+.icon-one {
+  background: radial-gradient(circle at 30% 30%, var(--sprinkle-pink), var(--lavender-100));
+}
+
+.icon-two {
+  background: radial-gradient(circle at 30% 30%, var(--sprinkle-blue), var(--lavender-100));
+}
+
+.icon-three {
+  background: radial-gradient(circle at 30% 30%, var(--sprinkle-yellow), var(--lavender-100));
+}
+
+.pedidos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.order-form {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.order-form h4,
+.order-aside h4 {
+  margin: 0;
+  color: var(--choco-900);
+}
+
+.helper-text {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.order-aside ul {
+  margin: 0.6rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+}
+
+.order-aside li + li {
+  margin-top: 0.4rem;
+}
+
+.order-form label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--choco-800);
+}
+
+input,
+select,
+textarea {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0.64rem 0.72rem;
+  font: inherit;
+  background: var(--surface);
+  color: var(--text);
+}
+
+textarea {
+  min-height: 95px;
+  resize: vertical;
+}
+
+.field-error {
+  color: #a32626;
+  font-size: 0.82rem;
+  margin-top: -0.18rem;
+}
+
+@media (max-width: 1024px) {
+  .pedidos-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .steps-row {
+    grid-template-columns: 1fr;
+  }
+
+  input,
+  textarea,
+  button {
+    font-size: 16px;
+  }
+
+  input,
+  textarea {
+    min-height: 46px;
+  }
+}
+
+
+`;

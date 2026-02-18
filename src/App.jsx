@@ -4,7 +4,6 @@ import BestSellers from './components/BestSellers';
 import Gallery from './components/Gallery';
 import Menu from './components/Menu';
 import Historia from './components/Historia';
-import Paquetes from './components/Paquetes';
 import Eventos from './components/Eventos';
 import Reviews from './components/Reviews';
 import Pedidos from './components/Pedidos';
@@ -24,7 +23,6 @@ function App() {
         <div className="section-wrap"><Gallery /></div>
         <div className="section-wrap"><Historia /></div>
         <div className="section-wrap"><Menu /></div>
-        <div className="section-wrap"><Paquetes /></div>
         <div className="section-wrap"><Eventos /></div>
         <div className="section-wrap"><Reviews /></div>
         <div className="section-wrap"><Pedidos /></div>

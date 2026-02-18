@@ -10,7 +10,6 @@ function Navbar() {
 
     { href: '#galeria', label: 'Galería' },
     { href: '#menu', label: 'Menú' },
-    { href: '#paquetes', label: 'Paquetes' },
     { href: '#eventos', label: 'Eventos' },
     { href: '#pedidos', label: 'Pedidos' },
     { href: '#contacto', label: 'Contacto' },

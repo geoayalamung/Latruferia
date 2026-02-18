@@ -27,9 +27,6 @@ function Footer() {
               <a href="#galeria">Galería</a>
             </li>
             <li>
-              <a href="#paquetes">Paquetes</a>
-            </li>
-            <li>
               <a href="#pedidos">Pedidos</a>
             </li>
             <li>

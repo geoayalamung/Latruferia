@@ -2,7 +2,7 @@ export const menuData = [
   {
     category: 'Trufas',
     description: 'Cremosas, decoradas y perfectas para regalar o compartir.',
-    image: '/Images/Trufas/trufasmix.png',
+    image: '/Images/Trufas/trufas.jpg',
     imageAlt: 'Variedad de trufas',
     items: [
       {
@@ -22,7 +22,7 @@ export const menuData = [
   {
     category: 'Tartas',
     description: 'Opciones mini y grandes para mesa de postres o eventos.',
-    image: '/Images/Tartas/tartaGrandefrutas.png',
+    image: '/Images/Tartas/tartas.png',
     imageAlt: 'Tarta con frutas',
     items: [
       {
@@ -49,7 +49,7 @@ export const menuData = [
   {
     category: 'MiniDonas',
     description: 'Mini donas rellenas y cubiertas con chocolate.',
-    image: '/Images/MiniDonas/minidonas.png',
+    image: '/Images/MiniDonas/mindonas2.png',
     imageAlt: 'Mini donas cubiertas de chocolate',
     items: [
       {

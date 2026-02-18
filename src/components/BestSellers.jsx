@@ -26,7 +26,7 @@ function BestSellers() {
     <section className="section" id="best-sellers">
       <div className="container">
         <div className="section-head compact-head">
-          <h3>Best sellers</h3>
+          <h3>Los favoritos</h3>
           <p>Lo más pedido de La Trufería.</p>
         </div>
 

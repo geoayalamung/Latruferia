@@ -92,6 +92,8 @@ img {
 .brand strong {
   color: var(--choco-900);
   font-size: 1rem;
+  font-family: var(--font-title);
+  font-weight: 400;
 }
 
 .brand small {

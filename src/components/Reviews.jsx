@@ -32,7 +32,7 @@ function Reviews() {
     <section className="section" id="reviews">
       <div className="container">
         <div className="section-head">
-          <h3>Reseñas</h3>
+          <h2>Reseñas</h2>
           <p>Lo que opinan nuestras clientas sobre nuestros postres.</p>
         </div>
 

@@ -1,0 +1,22 @@
+{
+  "name": "La Trufería",
+  "short_name": "La Trufería",
+  "description": "Trufas, pays y tartas artesanales en Sahuayo, Michoacán.",
+  "lang": "es-MX",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFF8FB",
+  "theme_color": "#FFF8FB",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

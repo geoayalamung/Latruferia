@@ -28,7 +28,7 @@ function Paquetes() {
     <section className="section section-tint" id="paquetes">
       <div className="container">
         <div className="section-head compact-head">
-          <h3>Paquetes</h3>
+          <h2>Paquetes</h2>
           <p>Elige la opción ideal: individual, paquete chico o pedido para evento.</p>
         </div>
 

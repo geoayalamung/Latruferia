@@ -166,6 +166,7 @@ img {
   margin-bottom: 1rem;
 }
 
+.section-head h2,
 .section-head h3 {
   display: inline-block;
   position: relative;
@@ -177,11 +178,13 @@ img {
   font-weight: 400;
   line-height: 1.04;
   padding: 0.4rem 1rem 0.5rem;
-  border: 4px dotted rgba(74, 42, 31, 0.68);
+  border: 4px dotted;
+  border-color: var(--sprinkle-pink) var(--sprinkle-yellow) var(--sprinkle-blue) var(--sprinkle-pink);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.72);
 }
 
+.section-head h2::after,
 .section-head h3::after {
   content: none;
 }

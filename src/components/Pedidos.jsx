@@ -53,7 +53,7 @@ function Pedidos() {
     <section className="section" id="pedidos">
       <div className="container">
         <div className="section-head compact-head">
-          <h3>Pedidos</h3>
+          <h2>Pedidos</h2>
           <p>Te respondemos por WhatsApp para confirmar detalles y entrega.</p>
         </div>
 
@@ -107,14 +107,21 @@ function Pedidos() {
             {errors.tipoPedido ? <small className="field-error">{errors.tipoPedido}</small> : null}
 
             <label htmlFor="pedido">¿Qué quieres pedir?</label>
-            <input
+            <select
               id="pedido"
               name="pedido"
-              type="text"
               value={formData.pedido}
               onChange={handleChange}
               aria-invalid={Boolean(errors.pedido)}
-            />
+            >
+              <option value="">Selecciona una opción</option>
+              <option value="Trufas">Trufas</option>
+              <option value="Tartas">Tartas</option>
+              <option value="Minidonas">Minidonas</option>
+              <option value="Gelatinas">Gelatinas</option>
+              <option value="Panesitos">Panesitos</option>
+              <option value="Besos de Nuez">Besos de Nuez</option>
+            </select>
             {errors.pedido ? <small className="field-error">{errors.pedido}</small> : null}
 
             <label htmlFor="fecha">Fecha del evento/entrega</label>

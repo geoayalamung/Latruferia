@@ -11,7 +11,8 @@ const bestSellers = [
     title: 'Mini donitas rellenas',
     description: 'Cubiertas de chocolate, tiernas y súper antojables.',
     price: '$5 c/u',
-    image: '/public/Images/MiniDonas/mindonas1.png'
+    image: 'public/Images/MiniDonas/mindonas2.png',
+    badge: 'Recomendado'
   },
   {
     title: 'Tarta con fruta grande',
@@ -30,7 +31,7 @@ function BestSellers() {
     <section className="section" id="best-sellers">
       <div className="container">
         <div className="section-head compact-head">
-          <h3>Los favoritos</h3>
+          <h2>Los favoritos</h2>
           <p>Lo más pedido de La Trufería.</p>
         </div>
 

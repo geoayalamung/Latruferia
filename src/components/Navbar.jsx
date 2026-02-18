@@ -7,8 +7,9 @@ function Navbar() {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navItems = [
-    { href: '#menu', label: 'Menú' },
+
     { href: '#galeria', label: 'Galería' },
+    { href: '#menu', label: 'Menú' },
     { href: '#paquetes', label: 'Paquetes' },
     { href: '#pedidos', label: 'Pedidos' },
     { href: '#contacto', label: 'Contacto' },

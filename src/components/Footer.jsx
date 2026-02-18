@@ -67,8 +67,24 @@ export default Footer;
 const footerStyles = `
 
 .footer {
+  position: relative;
   border-top: 1px solid var(--border);
   background: linear-gradient(180deg, var(--surface), var(--lavender-50));
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -11px;
+  width: 100%;
+  height: 22px;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 14px 14px, var(--bg) 14px, transparent 14.8px);
+  background-size: 28px 22px;
+  background-repeat: repeat-x;
+  transform: scaleY(-1);
+  filter: drop-shadow(0 -2px 0 rgba(74, 42, 31, 0.2));
 }
 
 .footer-main {

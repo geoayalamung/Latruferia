@@ -59,10 +59,10 @@ export default Contacto;
 
 const contactoStyles = `
 .final-cta {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   border-radius: 24px;
   border: 1px solid var(--border);
-  padding: 1.35rem;
+  padding: 3rem;
   background: linear-gradient(130deg, var(--lavender-200), var(--lavender-100));
   display: flex;
   justify-content: space-between;

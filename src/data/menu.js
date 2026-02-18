@@ -7,10 +7,14 @@ export const menuData = [
     items: [
       {
         name: 'Trufitas sabor oreo, limón, Nutella, coco, y pay de limón',
+        flavors: ['Oreo', 'Limón', 'Nutella', 'Coco', 'Pay de limón'],
+        description: 'Individual',
         price: '$7 c/u'
       },
       {
         name: 'Cajitas con 20 piezas',
+        flavors: ['Surtidas'],
+        description: 'Presentación de 20 piezas',
         price: '$140'
       }
     ]
@@ -23,14 +27,20 @@ export const menuData = [
     items: [
       {
         name: 'Mini tartas',
+        flavors: ['Surtidas'],
+        description: 'Porción individual',
         price: '$7 c/u'
       },
       {
         name: 'Tarta',
+        flavors: ['Surtidas'],
+        description: 'Porción mediana',
         price: '$35 c/u'
       },
       {
         name: 'Tarta con fruta grande',
+        flavors: ['Frutas'],
+        description: 'Ideal para evento',
         price: '$450',
         badge: 'Especial'
       }
@@ -44,6 +54,8 @@ export const menuData = [
     items: [
       {
         name: 'Mini donitas rellenas, cubiertas de chocolate',
+        flavors: ['Chocolate'],
+        description: 'Rellenas',
         price: '$5 c/u',
         badge: 'Recomendado'
       }
@@ -57,14 +69,20 @@ export const menuData = [
     items: [
       {
         name: 'Gelatina individual con frutas',
+        flavors: ['Frutas'],
+        description: 'Porción individual',
         price: '$30'
       },
       {
         name: 'Besos de nuez',
+        flavors: ['Nuez'],
+        description: 'Bolsita',
         price: '$30 bolsita'
       },
       {
         name: 'Panesitos',
+        flavors: ['Surtidos'],
+        description: 'Bolsita',
         price: '$30 bolsita'
       }
     ]

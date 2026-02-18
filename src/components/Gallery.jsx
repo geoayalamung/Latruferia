@@ -9,6 +9,11 @@ const galleryItems = [
   'public/Images/Tartas/tartaskiwi.png',
   'public/Images/Trufas/trufasmix.png',
   'public/Images/Trufas/trufaspink.png',
+    'public/Images/MiniDonas/minidonas.png',
+    'public/Images/Trufas/trufasDiferentes.png',
+    'public/Images/Trufas/trufasPaquetes.png',
+
+
 
 ];
 

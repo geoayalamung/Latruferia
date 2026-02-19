@@ -9,6 +9,22 @@ const tiktokLink = 'https://www.tiktok.com/@latruferia92';
 const emailAddress = 'latruferiasahuayo@gmail.com';
 
 function SocialIcon({ platform }) {
+  if (platform === 'whatsapp') {
+    return (
+      <svg className="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 2.2a9.7 9.7 0 0 0-8.4 14.5L2 22l5.5-1.44A9.8 9.8 0 1 0 12 2.2Zm0 17.72c-1.43 0-2.83-.4-4.03-1.14l-.29-.17-3.26.85.87-3.18-.19-.32a8.02 8.02 0 1 1 6.9 3.96Zm4.48-5.95c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06a6.58 6.58 0 0 1-1.94-1.2 7.25 7.25 0 0 1-1.34-1.66c-.14-.24-.02-.37.1-.5.1-.1.24-.26.36-.4.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.79-.2-.47-.4-.4-.54-.4h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.69 2.58 4.1 3.62.57.24 1.02.38 1.37.48.58.18 1.1.15 1.51.09.46-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z" />
+      </svg>
+    );
+  }
+
+  if (platform === 'phone') {
+    return (
+      <svg className="social-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6.62 3.3c.28-.68 1.02-1.04 1.73-.86l2.23.56c.73.18 1.2.88 1.11 1.63l-.3 2.48c-.06.5-.4.92-.88 1.07l-1.3.42a12.3 12.3 0 0 0 6.18 6.18l.42-1.3c.15-.48.57-.82 1.07-.88l2.48-.3c.75-.09 1.45.38 1.63 1.11l.56 2.23c.18.71-.18 1.45-.86 1.73l-1.92.8c-.6.25-1.28.3-1.92.14a18.4 18.4 0 0 1-5.65-2.55 18.73 18.73 0 0 1-4.35-4.35 18.4 18.4 0 0 1-2.55-5.65 2.6 2.6 0 0 1 .14-1.92l.8-1.92Z" />
+      </svg>
+    );
+  }
+
   if (platform === 'instagram') {
     return (
       <svg className="social-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -49,21 +65,25 @@ function Contacto() {
         </div>
         <div className="container">
           <article className="card contact-offer">
-            <p className="contact-kicker">Respuesta rápida por WhatsApp</p>
-            <h3>Haz tu pedido hoy y recibe atención personalizada</h3>
-            <p>
-              Te ayudamos a definir sabores, cantidades y presentación según tu presupuesto para que tu
-              mesa de postres se vea espectacular.
-            </p>
-            <div className="contact-points" aria-label="Ventajas de contacto">
-              <span>Asesoría sin costo</span>
-              <span>Entrega en Sahuayo</span>
-              <span>Diseños por temática</span>
-            </div>
-            <div className="contact-actions">
-              <a href={whatsappLink} target="_blank" rel="noreferrer" className="btn btn-large">
-                Cotizar por WhatsApp
-              </a>
+            <div className="contact-offer-main">
+              <div className="contact-offer-copy">
+                <h3>Haz tu pedido hoy y recibe atención personalizada</h3>
+                <p>
+                  Te ayudamos a definir sabores, cantidades y presentación según tu presupuesto para que tu
+                  mesa de postres se vea espectacular.
+                </p>
+
+              </div>
+              <div className="contact-actions contact-offer-actions">
+                <a href={whatsappLink} target="_blank" rel="noreferrer" className="btn btn-large">
+                  <SocialIcon platform="whatsapp" />
+                  Cotizar por WhatsApp
+                </a>
+                <a href={phoneLink} className="btn btn-ghost">
+                  <SocialIcon platform="phone" />
+                  Llamar ahora
+                </a>
+              </div>
             </div>
           </article>
 
@@ -73,9 +93,11 @@ function Contacto() {
               <p>Resolvemos dudas, cotizaciones y pedidos por mensaje directo.</p>
               <div className="contact-actions">
                 <a href={whatsappLink} target="_blank" rel="noreferrer" className="btn">
+                  <SocialIcon platform="whatsapp" />
                   WhatsApp
                 </a>
                 <a href={phoneLink} className="btn btn-ghost">
+                  <SocialIcon platform="phone" />
                   Llamar
                 </a>
               </div>
@@ -106,10 +128,7 @@ function Contacto() {
               <h4>Información</h4>
               <ul className="info-list">
                 <li>
-                  <strong>Ubicación:</strong> Alfredo Gutiérrez 364, Sahuayo, México, 59028.
-                </li>
-                <li>
-                  <strong>Horario:</strong> Lunes a sábado, 10:00 a 19:00.
+                  <strong>Ubicación:</strong> Sahuayo,Michoacan
                 </li>
                 <li>
                   <strong>Entrega:</strong> Servicio a domicilio en Sahuayo.
@@ -144,11 +163,22 @@ const contactoStyles = `
 .contact-offer {
   margin-bottom: 1rem;
   border-radius: 24px;
-  padding: 1.05rem;
+  padding: 2rem;
   border: 1px solid rgba(199, 160, 214, 0.42);
   background:
     radial-gradient(circle at 90% 10%, rgba(246, 226, 156, 0.32), transparent 40%),
     linear-gradient(130deg, rgba(235, 215, 239, 0.72), rgba(255, 255, 255, 0.88));
+}
+
+.contact-offer-main {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.contact-offer-copy {
+  min-width: 0;
 }
 
 .contact-kicker {
@@ -164,6 +194,7 @@ const contactoStyles = `
   margin: 0.35rem 0 0;
   color: var(--choco-900);
   font-size: clamp(1.3rem, 2.4vw, 1.85rem);
+  line-height: 1.2;
 }
 
 .contact-offer p {
@@ -222,8 +253,27 @@ const contactoStyles = `
   flex-wrap: wrap;
 }
 
+.contact-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.contact-offer-actions {
+  margin-top: 0;
+  align-self: stretch;
+  display: grid;
+  align-content: center;
+  gap: 0.55rem;
+}
+
+.contact-offer-actions .btn {
+  justify-content: center;
+  min-height: 46px;
+}
+
 .social-title {
-  margin: 1rem 0 0.4rem;
+  margin: 1.35rem 0 1.15rem;
   color: var(--choco-900);
   font-weight: 800;
   font-size: 0.95rem;
@@ -232,7 +282,8 @@ const contactoStyles = `
 .social-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.55rem;
+  gap: 1rem;
+  padding-top: 0.2rem;
 }
 
 .social-link {
@@ -243,17 +294,18 @@ const contactoStyles = `
 }
 
 .social-pill {
-  min-height: 42px;
-  padding: 0.5rem 0.45rem;
-  font-size: 0.88rem;
+  min-height: 38px;
+  padding: 0.2rem 0.35rem;
+  font-size: 0.8rem;
   font-weight: 700;
 }
 
 .social-icon {
-  width: 1rem;
-  height: 1rem;
-  flex: 0 0 1rem;
+  width: 0.98rem;
+  height: 0.98rem;
+  flex: 0 0 0.98rem;
   fill: currentColor;
+  opacity: 0.95;
 }
 
 .info-list {
@@ -273,6 +325,15 @@ const contactoStyles = `
 }
 
 @media (max-width: 1024px) {
+  .contact-offer-main {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .contact-offer-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .contact-grid {
     grid-template-columns: 1fr;
   }
@@ -287,20 +348,45 @@ const contactoStyles = `
     padding: 0.95rem;
   }
 
+  .contact-actions {
+    gap: 0.55rem;
+  }
+
   .contact-actions .btn {
-    width: 100%;
+    flex: 1 1 calc(50% - 0.28rem);
+    min-width: 0;
     justify-content: center;
   }
 
-  .social-grid {
+  .contact-offer-actions {
     grid-template-columns: 1fr;
-    gap: 0.48rem;
+  }
+
+  .social-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.4rem;
   }
 
   .social-pill {
-    width: 100%;
-    justify-content: flex-start;
-    padding: 0.56rem 0.7rem;
+    min-height: 36px;
+    justify-content: center;
+    padding: 0.38rem 0.28rem;
+    font-size: 0.76rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .contact-actions .btn {
+    flex-basis: 100%;
+  }
+
+  .social-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .social-pill {
+    justify-content: center;
+    padding-inline: 0.24rem;
   }
 }
 

@@ -16,11 +16,25 @@ const eventosImages = [
   '/Images/Eventos/tartasEvento.jpg',
 ];
 
+const eventosAspectRatios = {
+  '/Images/Eventos/evento4.jpg': '4640 / 3472',
+  '/Images/Eventos/evento.png': '768 / 1344',
+  '/Images/Eventos/evento2.jpg': '4624 / 3460',
+  '/Images/Eventos/TrufasOjos.jpg': '4624 / 3460',
+  '/Images/Eventos/evento1.jpg': '4624 / 3460',
+  '/Images/Eventos/trufasVitrina.png': '1184 / 864',
+  '/Images/Eventos/Halloween.jpg': '4624 / 3460',
+  '/Images/Eventos/tartasGelatinas.jpg': '4640 / 3472',
+  '/Images/Eventos/eventoBirthday.jpg': '4640 / 3472',
+  '/Images/Eventos/tartasEvento.jpg': '4640 / 3472',
+};
+
 function Eventos() {
   const [eventoIndex, setEventoIndex] = useState(0);
   const [activeIndex, setActiveIndex] = useState(null);
   const closeButtonRef = useRef(null);
   const lastTriggerRef = useRef(null);
+  const touchStartRef = useRef({ x: 0, y: 0 });
   const isOpen = activeIndex !== null;
 
   useEffect(() => {
@@ -55,6 +69,28 @@ function Eventos() {
   };
   const showNext = () => {
     setActiveIndex((current) => (current + 1) % eventosImages.length);
+  };
+
+  const onTouchStart = (event) => {
+    const touch = event.changedTouches[0];
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+  };
+
+  const onTouchEnd = (event) => {
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - touchStartRef.current.x;
+    const deltaY = touch.clientY - touchStartRef.current.y;
+
+    if (Math.abs(deltaX) < 40 || Math.abs(deltaX) < Math.abs(deltaY)) {
+      return;
+    }
+
+    if (deltaX > 0) {
+      showPrev();
+      return;
+    }
+
+    showNext();
   };
 
   useEffect(() => {
@@ -125,12 +161,19 @@ function Eventos() {
                 <span>Asesoría rápida por WhatsApp</span>
               </div>
               <a href={whatsappLink} target="_blank" rel="noreferrer" className="btn btn-large">
+                <svg className="eventos-whatsapp-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 2.2a9.7 9.7 0 0 0-8.4 14.5L2 22l5.5-1.44A9.8 9.8 0 1 0 12 2.2Zm0 17.72c-1.43 0-2.83-.4-4.03-1.14l-.29-.17-3.26.85.87-3.18-.19-.32a8.02 8.02 0 1 1 6.9 3.96Zm4.48-5.95c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06a6.58 6.58 0 0 1-1.94-1.2 7.25 7.25 0 0 1-1.34-1.66c-.14-.24-.02-.37.1-.5.1-.1.24-.26.36-.4.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.79-.2-.47-.4-.4-.54-.4h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.69 2.58 4.1 3.62.57.24 1.02.38 1.37.48.58.18 1.1.15 1.51.09.46-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z" />
+                </svg>
                 Cotizar evento por WhatsApp
               </a>
             </div>
 
             <div className="eventos-media">
-              <div className="eventos-mini-carousel" aria-label="Galería de eventos">
+              <div
+                className="eventos-mini-carousel"
+                aria-label="Galería de eventos"
+                style={{ '--event-card-aspect': eventosAspectRatios[eventosImages[eventoIndex]] || '4 / 3' }}
+              >
                 <button
                   type="button"
                   className="eventos-image-open"
@@ -141,6 +184,7 @@ function Eventos() {
                     src={eventosImages[eventoIndex]}
                     alt={`Evento La Trufería ${eventoIndex + 1}`}
                     loading="lazy"
+                    decoding="async"
                   />
                 </button>
                 <button
@@ -173,7 +217,12 @@ function Eventos() {
 
       {isOpen && (
         <div className="eventos-lightbox" role="dialog" aria-modal="true" onClick={closeCarousel}>
-          <div className="eventos-carousel" onClick={(event) => event.stopPropagation()}>
+          <div
+            className="eventos-carousel"
+            onClick={(event) => event.stopPropagation()}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+          >
             <button
               className="eventos-close"
               type="button"
@@ -186,7 +235,7 @@ function Eventos() {
             <button className="eventos-arrow left" type="button" onClick={showPrev} aria-label="Foto anterior">
               ‹
             </button>
-            <img src={eventosImages[activeIndex]} alt={`Evento La Trufería ${activeIndex + 1}`} />
+            <img src={eventosImages[activeIndex]} alt={`Evento La Trufería ${activeIndex + 1}`} decoding="async" />
             <button className="eventos-arrow right" type="button" onClick={showNext} aria-label="Foto siguiente">
               ›
             </button>
@@ -263,6 +312,19 @@ const eventosStyles = `
   border: 1px solid rgba(74, 42, 31, 0.14);
 }
 
+.eventos-copy .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.eventos-whatsapp-icon {
+  width: 0.98rem;
+  height: 0.98rem;
+  flex: 0 0 0.98rem;
+  fill: currentColor;
+}
+
 .eventos-media {
   width: min(360px, 100%);
   justify-self: end;
@@ -271,18 +333,23 @@ const eventosStyles = `
 
 .eventos-mini-carousel {
   position: relative;
+  display: grid;
+  place-items: center;
   width: 100%;
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid rgba(74, 42, 31, 0.14);
   box-shadow: var(--shadow-soft);
-  aspect-ratio: 4 / 5;
+  aspect-ratio: var(--event-card-aspect, 4 / 3);
+  background: transparent;
 }
 
 .eventos-mini-carousel img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
+  border-radius: inherit;
   display: block;
 }
 
@@ -417,6 +484,7 @@ const eventosStyles = `
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   animation: lightboxPopIn 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  touch-action: pan-y;
 }
 
 .eventos-carousel img {
@@ -515,7 +583,7 @@ const eventosStyles = `
   }
 
   .eventos-mini-carousel {
-    aspect-ratio: 16 / 9;
+    min-height: 260px;
   }
 }
 
@@ -529,13 +597,12 @@ const eventosStyles = `
   }
 
   .eventos-mini-carousel {
-    aspect-ratio: 16 / 10;
-    background: linear-gradient(180deg, rgba(248, 241, 247, 0.88), rgba(255, 255, 255, 0.95));
+    min-height: 230px;
   }
 
   .eventos-mini-carousel img {
-    object-fit: contain;
-    object-position: center;
+    width: 100%;
+    height: 100%;
   }
 
   .eventos-arrow {
@@ -546,7 +613,25 @@ const eventosStyles = `
 
   .eventos-carousel {
     width: 100%;
-    padding: 0.6rem 2.6rem 2.1rem;
+    padding: 1rem 1rem 4.1rem;
+  }
+
+  .eventos-arrow.left {
+    left: calc(50% - 56px);
+    top: auto;
+    bottom: 0.8rem;
+    transform: none;
+  }
+
+  .eventos-arrow.right {
+    right: calc(50% - 56px);
+    top: auto;
+    bottom: 0.8rem;
+    transform: none;
+  }
+
+  .eventos-counter {
+    margin-top: 1rem;
   }
 }
 `;

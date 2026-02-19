@@ -84,7 +84,7 @@ const reviewsStyles = `
   display: flex;
   gap: 1.05rem;
   will-change: transform;
-  animation: reviews-scroll 36s linear infinite;
+  animation: reviews-scroll 27s linear infinite;
 }
 
 .reviews-group {
@@ -161,7 +161,7 @@ const reviewsStyles = `
 
   .reviews-track {
     gap: 0.75rem;
-    animation-duration: 30s;
+    animation-duration: 21s;
   }
 
   .reviews-group {

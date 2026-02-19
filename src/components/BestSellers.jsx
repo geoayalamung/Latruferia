@@ -464,7 +464,7 @@ const bestSellersStyles = `
   }
 
   .best-image {
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
     transform: none;
   }

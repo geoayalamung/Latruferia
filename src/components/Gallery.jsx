@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 
 const galleryItems = [
   '/Images/MiniDonas/mindonas1.png',
@@ -139,6 +140,43 @@ function Gallery() {
   }, []);
 
   const canToggle = galleryItems.length > collapsedCount;
+  const shouldRenderLightbox = isOpen && activeIndex >= 0 && activeIndex < carouselItems.length;
+  const lightbox = shouldRenderLightbox ? (
+    <div className="gallery-lightbox" role="dialog" aria-modal="true" onClick={closeCarousel}>
+      <div className="gallery-carousel" onClick={(event) => event.stopPropagation()}>
+        <button
+          className="carousel-close"
+          type="button"
+          ref={closeButtonRef}
+          onClick={closeCarousel}
+          aria-label="Cerrar carrusel"
+        >
+          ×
+        </button>
+
+        <button className="carousel-arrow left" type="button" onClick={showPrev} aria-label="Imagen anterior">
+          ‹
+        </button>
+
+        <div
+          className="gallery-media"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <img src={carouselItems[activeIndex]} alt={`Postre La Trufería ${activeIndex + 1}`} />
+        </div>
+
+        <button className="carousel-arrow right" type="button" onClick={showNext} aria-label="Imagen siguiente">
+          ›
+        </button>
+
+        <p className="carousel-counter">
+          {activeIndex + 1} / {carouselItems.length}
+        </p>
+      </div>
+    </div>
+  ) : null;
 
   return (
       <>
@@ -186,42 +224,7 @@ function Gallery() {
           </div>
         </section>
 
-        {isOpen && activeIndex >= 0 && activeIndex < carouselItems.length && (
-            <div className="gallery-lightbox" role="dialog" aria-modal="true" onClick={closeCarousel}>
-              <div className="gallery-carousel" onClick={(event) => event.stopPropagation()}>
-                <button
-                    className="carousel-close"
-                    type="button"
-                    ref={closeButtonRef}
-                    onClick={closeCarousel}
-                    aria-label="Cerrar carrusel"
-                >
-                  ×
-                </button>
-
-                <button className="carousel-arrow left" type="button" onClick={showPrev} aria-label="Imagen anterior">
-                  ‹
-                </button>
-
-                <div
-                    className="gallery-media"
-                    onTouchStart={handleTouchStart}
-                    onTouchMove={handleTouchMove}
-                    onTouchEnd={handleTouchEnd}
-                >
-                  <img src={carouselItems[activeIndex]} alt={`Postre La Trufería ${activeIndex + 1}`} />
-                </div>
-
-                <button className="carousel-arrow right" type="button" onClick={showNext} aria-label="Imagen siguiente">
-                  ›
-                </button>
-
-                <p className="carousel-counter">
-                  {activeIndex + 1} / {carouselItems.length}
-                </p>
-              </div>
-            </div>
-        )}
+        {lightbox && typeof document !== 'undefined' ? createPortal(lightbox, document.body) : null}
       </>
   );
 }
@@ -295,6 +298,8 @@ const galleryStyles = `
 }
 
 .gallery-item {
+  appearance: none;
+  -webkit-appearance: none;
   position: relative;
   margin: 0;
   overflow: hidden;
@@ -490,15 +495,51 @@ const galleryStyles = `
   .gallery-grid { grid-template-columns: 1fr; }
 
   .gallery-item {
-    min-height: 220px;
-    background: transparent;
+    aspect-ratio: auto;
+    height: clamp(250px, 62vw, 360px);
+    min-height: 0;
+    background: rgba(245, 236, 247, 0.92);
   }
 
   .gallery-item img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     object-position: center;
   }
 
-  .carousel-arrow { display: none; }
+  .carousel-arrow {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    font-size: 1.8rem;
+    top: auto;
+    bottom: max(0.8rem, env(safe-area-inset-bottom));
+    transform: none;
+    background: rgba(16, 16, 16, 0.62);
+  }
+
+  .carousel-arrow.left {
+    left: calc(50% - 56px);
+    right: auto;
+  }
+
+  .carousel-arrow.right {
+    right: calc(50% - 56px);
+    left: auto;
+  }
+
+  .carousel-close {
+    width: 46px;
+    height: 46px;
+    font-size: 2rem;
+    background: rgba(16, 16, 16, 0.72);
+    border-color: rgba(255, 255, 255, 0.38);
+  }
+
+  .carousel-counter {
+    bottom: max(4rem, calc(env(safe-area-inset-bottom) + 3.2rem));
+  }
 }
 `;

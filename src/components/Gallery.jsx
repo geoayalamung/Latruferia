@@ -11,14 +11,14 @@ const galleryItems = [
   '/Images/Trufas/trufasmix.png',
   '/Images/Trufas/trufaspink.png',
   '/Images/MiniDonas/minidonas.png',
-    'public/Images/Trufas/trufascorazon.png',
+    '/Images/Trufas/trufascorazon.png',
   '/Images/Trufas/trufasDiferentes.png',
   '/Images/Trufas/trufasPaquetes.png',
-    'public/Images/Trufas/trufaspinnksbox.png',
-    'public/Images/Trufas/trufrasSprinkles.png',
-    'public/Images/Tartas/tartacoffe.png',
-    'public/Images/Trufas/trufasConBesos.jpg',
-    'public/Images/Tartas/tartaGrande.png',
+    '/Images/Trufas/trufaspinnksbox.png',
+    '/Images/Trufas/trufrasSprinkles.png',
+    '/Images/Tartas/tartacoffe.png',
+    '/Images/Trufas/trufasConBesos.jpg',
+    '/Images/Tartas/tartaGrande.png',
 
 ];
 

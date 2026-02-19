@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 const whatsappLink =
   'https://wa.me/523535367398?text=Hola%20La%20Trufer%C3%ADa%2C%20quiero%20hacer%20un%20pedido%20para%20evento';
@@ -16,26 +17,15 @@ const eventosImages = [
   '/Images/Eventos/tartasEvento.jpg',
 ];
 
-const eventosAspectRatios = {
-  '/Images/Eventos/evento4.jpg': '4640 / 3472',
-  '/Images/Eventos/evento.png': '768 / 1344',
-  '/Images/Eventos/evento2.jpg': '4624 / 3460',
-  '/Images/Eventos/TrufasOjos.jpg': '4624 / 3460',
-  '/Images/Eventos/evento1.jpg': '4624 / 3460',
-  '/Images/Eventos/trufasVitrina.png': '1184 / 864',
-  '/Images/Eventos/Halloween.jpg': '4624 / 3460',
-  '/Images/Eventos/tartasGelatinas.jpg': '4640 / 3472',
-  '/Images/Eventos/eventoBirthday.jpg': '4640 / 3472',
-  '/Images/Eventos/tartasEvento.jpg': '4640 / 3472',
-};
-
 function Eventos() {
   const [eventoIndex, setEventoIndex] = useState(0);
   const [activeIndex, setActiveIndex] = useState(null);
+  const isOpen = activeIndex !== null;
+
   const closeButtonRef = useRef(null);
   const lastTriggerRef = useRef(null);
-  const touchStartRef = useRef({ x: 0, y: 0 });
-  const isOpen = activeIndex !== null;
+  const touchStartXRef = useRef(0);
+  const touchDeltaXRef = useRef(0);
 
   useEffect(() => {
     if (isOpen) {
@@ -52,46 +42,51 @@ function Eventos() {
   const goPrevEvento = () =>
     setEventoIndex((prev) => (prev - 1 + eventosImages.length) % eventosImages.length);
   const goNextEvento = () => setEventoIndex((prev) => (prev + 1) % eventosImages.length);
-  const closeCarousel = () => {
+  const closeCarousel = useCallback(() => {
     setActiveIndex(null);
     window.setTimeout(() => {
       if (lastTriggerRef.current) {
         lastTriggerRef.current.focus();
       }
     }, 0);
-  };
-  const openCarousel = (index, triggerElement) => {
+  }, []);
+
+  const openCarousel = useCallback((index, triggerElement) => {
     lastTriggerRef.current = triggerElement || document.activeElement;
     setActiveIndex(index);
-  };
-  const showPrev = () => {
+  }, []);
+
+  const showPrev = useCallback(() => {
     setActiveIndex((current) => (current - 1 + eventosImages.length) % eventosImages.length);
-  };
-  const showNext = () => {
+  }, []);
+
+  const showNext = useCallback(() => {
     setActiveIndex((current) => (current + 1) % eventosImages.length);
-  };
+  }, []);
 
-  const onTouchStart = (event) => {
-    const touch = event.changedTouches[0];
-    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
-  };
+  const handleTouchStart = useCallback((event) => {
+    const touch = event.touches[0];
+    if (!touch) return;
+    touchStartXRef.current = touch.clientX;
+    touchDeltaXRef.current = 0;
+  }, []);
 
-  const onTouchEnd = (event) => {
-    const touch = event.changedTouches[0];
-    const deltaX = touch.clientX - touchStartRef.current.x;
-    const deltaY = touch.clientY - touchStartRef.current.y;
+  const handleTouchMove = useCallback((event) => {
+    const touch = event.touches[0];
+    if (!touch) return;
+    touchDeltaXRef.current = touch.clientX - touchStartXRef.current;
+  }, []);
 
-    if (Math.abs(deltaX) < 40 || Math.abs(deltaX) < Math.abs(deltaY)) {
-      return;
+  const handleTouchEnd = useCallback(() => {
+    const threshold = 48;
+    const deltaX = touchDeltaXRef.current;
+    if (Math.abs(deltaX) >= threshold) {
+      if (deltaX < 0) showNext();
+      if (deltaX > 0) showPrev();
     }
-
-    if (deltaX > 0) {
-      showPrev();
-      return;
-    }
-
-    showNext();
-  };
+    touchStartXRef.current = 0;
+    touchDeltaXRef.current = 0;
+  }, [showNext, showPrev]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -130,7 +125,41 @@ function Eventos() {
       document.body.style.overflow = previousOverflow;
       document.body.style.paddingRight = previousPaddingRight;
     };
-  }, [isOpen]);
+  }, [isOpen, closeCarousel, showNext, showPrev]);
+
+  const shouldRenderLightbox = isOpen && activeIndex >= 0 && activeIndex < eventosImages.length;
+  const lightbox = shouldRenderLightbox ? (
+    <div className="eventos-lightbox" role="dialog" aria-modal="true" onClick={closeCarousel}>
+      <div className="eventos-carousel" onClick={(event) => event.stopPropagation()}>
+        <button
+          className="eventos-close"
+          type="button"
+          ref={closeButtonRef}
+          onClick={closeCarousel}
+          aria-label="Cerrar carrusel de eventos"
+        >
+          ×
+        </button>
+        <button className="eventos-arrow left" type="button" onClick={showPrev} aria-label="Foto anterior">
+          ‹
+        </button>
+        <div
+          className="eventos-media-full"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <img src={eventosImages[activeIndex]} alt={`Evento La Trufería ${activeIndex + 1}`} decoding="async" />
+        </div>
+        <button className="eventos-arrow right" type="button" onClick={showNext} aria-label="Foto siguiente">
+          ›
+        </button>
+        <p className="eventos-counter">
+          {activeIndex + 1} / {eventosImages.length}
+        </p>
+      </div>
+    </div>
+  ) : null;
 
   return (
     <>
@@ -169,11 +198,7 @@ function Eventos() {
             </div>
 
             <div className="eventos-media">
-              <div
-                className="eventos-mini-carousel"
-                aria-label="Galería de eventos"
-                style={{ '--event-card-aspect': eventosAspectRatios[eventosImages[eventoIndex]] || '4 / 3' }}
-              >
+              <div className="eventos-mini-carousel" aria-label="Galería de eventos">
                 <button
                   type="button"
                   className="eventos-image-open"
@@ -181,6 +206,8 @@ function Eventos() {
                   aria-label={`Abrir foto ${eventoIndex + 1} de eventos`}
                 >
                   <img
+                    className="eventos-mini-image"
+                    key={eventosImages[eventoIndex]}
                     src={eventosImages[eventoIndex]}
                     alt={`Evento La Trufería ${eventoIndex + 1}`}
                     loading="lazy"
@@ -215,36 +242,7 @@ function Eventos() {
         </div>
       </section>
 
-      {isOpen && (
-        <div className="eventos-lightbox" role="dialog" aria-modal="true" onClick={closeCarousel}>
-          <div
-            className="eventos-carousel"
-            onClick={(event) => event.stopPropagation()}
-            onTouchStart={onTouchStart}
-            onTouchEnd={onTouchEnd}
-          >
-            <button
-              className="eventos-close"
-              type="button"
-              ref={closeButtonRef}
-              onClick={closeCarousel}
-              aria-label="Cerrar carrusel de eventos"
-            >
-              ×
-            </button>
-            <button className="eventos-arrow left" type="button" onClick={showPrev} aria-label="Foto anterior">
-              ‹
-            </button>
-            <img src={eventosImages[activeIndex]} alt={`Evento La Trufería ${activeIndex + 1}`} decoding="async" />
-            <button className="eventos-arrow right" type="button" onClick={showNext} aria-label="Foto siguiente">
-              ›
-            </button>
-            <p className="eventos-counter">
-              {activeIndex + 1} / {eventosImages.length}
-            </p>
-          </div>
-        </div>
-      )}
+      {lightbox && typeof document !== 'undefined' ? createPortal(lightbox, document.body) : null}
     </>
   );
 }
@@ -340,20 +338,22 @@ const eventosStyles = `
   overflow: hidden;
   border: 1px solid rgba(74, 42, 31, 0.14);
   box-shadow: var(--shadow-soft);
-  aspect-ratio: var(--event-card-aspect, 4 / 3);
-  background: transparent;
+  aspect-ratio: 4 / 3;
+  background: rgba(245, 236, 247, 0.7);
 }
 
 .eventos-mini-carousel img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center;
+  object-fit: cover;
+  object-position: center bottom;
   border-radius: inherit;
   display: block;
 }
 
 .eventos-image-open {
+  appearance: none;
+  -webkit-appearance: none;
   position: relative;
   width: 100%;
   height: 100%;
@@ -381,11 +381,12 @@ const eventosStyles = `
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-.eventos-image-open img {
+.eventos-image-open .eventos-mini-image {
   transition: transform 0.32s ease, filter 0.32s ease;
+  animation: eventoMiniReveal 0.35s ease;
 }
 
-.eventos-image-open:hover img {
+.eventos-image-open:hover .eventos-mini-image {
   transform: scale(1.04);
   filter: saturate(1.05);
 }
@@ -463,37 +464,57 @@ const eventosStyles = `
 .eventos-lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.82);
-  display: grid;
-  place-items: center;
-  z-index: 999;
-  padding: 1rem;
+  background: rgba(0, 0, 0, 0.94);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  touch-action: none;
   animation: lightboxFadeIn 0.22s ease;
 }
 
 .eventos-carousel {
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
-  width: min(1120px, 96vw);
-  max-height: 92vh;
-  display: grid;
-  place-items: center;
-  padding: 0.85rem 3.1rem 2.2rem;
-  border-radius: 20px;
-  background: rgba(255, 248, 251, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+  box-sizing: border-box;
   animation: lightboxPopIn 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@supports (height: 100dvh) {
+  .eventos-carousel {
+    height: 100dvh;
+    max-height: 100dvh;
+  }
+}
+
+.eventos-media-full {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  box-sizing: border-box;
   touch-action: pan-y;
 }
 
 .eventos-carousel img {
+  display: block;
   width: auto;
-  max-width: 100%;
   height: auto;
-  max-height: 82vh;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
-  border-radius: 16px;
 }
 
 .eventos-arrow,
@@ -501,45 +522,60 @@ const eventosStyles = `
   position: absolute;
   border: 0;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.36);
-  color: var(--choco-900);
+  background: rgba(16, 16, 16, 0.45);
+  color: #fff;
   cursor: pointer;
-  box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .eventos-arrow {
-  width: 44px;
-  height: 44px;
-  font-size: 2rem;
+  width: 46px;
+  height: 46px;
+  font-size: 2.1rem;
   line-height: 1;
   top: 50%;
   transform: translateY(-50%);
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .eventos-arrow.left {
-  left: 0.7rem;
+  left: 1rem;
 }
 
 .eventos-arrow.right {
-  right: 0.7rem;
+  right: 1rem;
 }
 
 .eventos-close {
-  top: 0.6rem;
-  right: 0.6rem;
-  width: 38px;
-  height: 38px;
-  font-size: 1.6rem;
+  top: max(0.8rem, env(safe-area-inset-top));
+  right: max(0.8rem, env(safe-area-inset-right));
+  width: 42px;
+  height: 42px;
+  font-size: 1.9rem;
   line-height: 1;
 }
 
 .eventos-counter {
-  margin: 0.7rem 0 0;
+  position: absolute;
+  left: 50%;
+  bottom: max(0.8rem, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
   color: #fff;
   font-weight: 700;
+  font-size: 0.85rem;
   letter-spacing: 0.02em;
+  background: rgba(16, 16, 16, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+.eventos-arrow:hover {
+  background: rgba(16, 16, 16, 0.62);
 }
 
 @keyframes lightboxFadeIn {
@@ -562,6 +598,17 @@ const eventosStyles = `
   }
 }
 
+@keyframes eventoMiniReveal {
+  from {
+    opacity: 0.55;
+    transform: scale(1.03);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .eventos-lightbox,
   .eventos-carousel,
@@ -581,10 +628,6 @@ const eventosStyles = `
     justify-self: start;
     width: min(420px, 100%);
   }
-
-  .eventos-mini-carousel {
-    min-height: 260px;
-  }
 }
 
 @media (max-width: 760px) {
@@ -597,7 +640,9 @@ const eventosStyles = `
   }
 
   .eventos-mini-carousel {
-    min-height: 230px;
+    aspect-ratio: auto;
+    height: clamp(250px, 62vw, 360px);
+    min-height: 0;
   }
 
   .eventos-mini-carousel img {
@@ -613,25 +658,33 @@ const eventosStyles = `
 
   .eventos-carousel {
     width: 100%;
-    padding: 1rem 1rem 4.1rem;
+    padding: 0;
   }
 
   .eventos-arrow.left {
     left: calc(50% - 56px);
     top: auto;
-    bottom: 0.8rem;
+    bottom: max(0.8rem, env(safe-area-inset-bottom));
     transform: none;
   }
 
   .eventos-arrow.right {
     right: calc(50% - 56px);
     top: auto;
-    bottom: 0.8rem;
+    bottom: max(0.8rem, env(safe-area-inset-bottom));
     transform: none;
   }
 
+  .eventos-close {
+    width: 46px;
+    height: 46px;
+    font-size: 2rem;
+    background: rgba(16, 16, 16, 0.72);
+    border-color: rgba(255, 255, 255, 0.38);
+  }
+
   .eventos-counter {
-    margin-top: 1rem;
+    bottom: max(4rem, calc(env(safe-area-inset-bottom) + 3.2rem));
   }
 }
 `;

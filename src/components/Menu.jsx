@@ -6,7 +6,7 @@ const packageInfo = [
     title: "Individuales",
     price: "Desde $5 c/u",
     desc: "Para antojo o regalo pequeño.",
-    items: ["Mini donitas $5 c/u", "Trufitas y mini tartas $7 c/u"],
+    items: ["Mini donitas $5 c/u", "Trufas y mini tartas $7 c/u"],
   },
   {
     title: "Paquete chico",
@@ -375,13 +375,66 @@ const menuStyles = `
 }
 
 .menu-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
   font-size: .68rem;
   font-weight: 900;
   color: var(--choco-900);
-  background: #ffe9bb;
+  background: linear-gradient(
+    120deg,
+    rgba(242, 183, 198, 0.5),
+    rgba(246, 226, 156, 0.6),
+    rgba(168, 211, 240, 0.5)
+  );
+  background-size: 200% 200%;
   border: 1px solid rgba(74, 42, 31, .14);
   border-radius: 999px;
   padding: .14rem .4rem;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .35) inset, 0 6px 12px rgba(74, 42, 31, .08);
+  animation: badgeGradientFlow 4.8s ease-in-out infinite;
+}
+
+.menu-badge::after {
+  content: "";
+  position: absolute;
+  top: -180%;
+  left: -58%;
+  width: 46%;
+  height: 420%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .52), transparent);
+  transform: rotate(18deg);
+  animation: badgeSparkleSweep 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.menu-item:hover .menu-badge {
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .45) inset, 0 10px 16px rgba(74, 42, 31, .12);
+}
+
+@keyframes badgeGradientFlow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes badgeSparkleSweep {
+  0%, 20% {
+    transform: translateX(0) rotate(18deg);
+    opacity: 0;
+  }
+  35% {
+    opacity: .95;
+  }
+  60%, 100% {
+    transform: translateX(320%) rotate(18deg);
+    opacity: 0;
+  }
 }
 
 .menu-flavors-list {
@@ -651,6 +704,13 @@ const menuStyles = `
 
   .menu-extra-head p {
     font-size: .82rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-badge,
+  .menu-badge::after {
+    animation: none;
   }
 }
 `;

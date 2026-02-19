@@ -6,13 +6,13 @@ export const menuData = [
     imageAlt: 'Variedad de trufas',
     items: [
       {
-        name: 'Trufitas sabor Oreo, Nutella, Coco, Pay de limón',
+        name: 'Trufas individuales',
         flavors: ['Oreo',  'Nutella', 'Coco', 'Pay de limón'],
-        description: 'Individual',
+        description: 'Diferentes sabores: ',
         price: '$7 c/u'
       },
       {
-        name: 'Cajitas con 20 piezas',
+        name: 'Cajitas de Trufas con 20 piezas',
         flavors: ['Surtidas'],
         description: 'Presentación de 20 piezas',
         price: '$140'

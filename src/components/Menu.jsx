@@ -78,12 +78,6 @@ function Menu() {
                 </div>
               </div>
 
-              <div className="menu-meta-row">
-                <span>{activeGroup.items.length} opciones</span>
-                <span>Disponibilidad por temporada</span>
-                <span>Pedidos personalizados</span>
-              </div>
-
               <div className="menu-grid">
                 {activeGroup.items.map((item) => (
                   <article className="menu-item" key={item.name}>

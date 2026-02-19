@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const galleryItems = [
   '/Images/MiniDonas/mindonas1.png',
@@ -26,13 +26,25 @@ function Gallery() {
   const [activeIndex, setActiveIndex] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [columns, setColumns] = useState(3);
+  const closeButtonRef = useRef(null);
+  const lastTriggerRef = useRef(null);
   const isOpen = activeIndex !== null;
   const collapsedCount = columns * 3;
   const visibleItems = isExpanded ? galleryItems : galleryItems.slice(0, collapsedCount);
   const canToggle = galleryItems.length > collapsedCount;
 
-  const closeCarousel = () => setActiveIndex(null);
-  const openCarousel = (index) => setActiveIndex(index);
+  const closeCarousel = () => {
+    setActiveIndex(null);
+    window.setTimeout(() => {
+      if (lastTriggerRef.current) {
+        lastTriggerRef.current.focus();
+      }
+    }, 0);
+  };
+  const openCarousel = (index, triggerElement) => {
+    lastTriggerRef.current = triggerElement || document.activeElement;
+    setActiveIndex(index);
+  };
   const showNext = () => {
     setActiveIndex((current) => (current + 1) % galleryItems.length);
   };
@@ -46,7 +58,12 @@ function Gallery() {
     }
 
     const previousOverflow = document.body.style.overflow;
+    const previousPaddingRight = document.body.style.paddingRight;
+    const scrollBarCompensation = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = 'hidden';
+    if (scrollBarCompensation > 0) {
+      document.body.style.paddingRight = `${scrollBarCompensation}px`;
+    }
 
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
@@ -61,10 +78,16 @@ function Gallery() {
     };
 
     window.addEventListener('keydown', handleKeyDown);
+    window.requestAnimationFrame(() => {
+      if (closeButtonRef.current) {
+        closeButtonRef.current.focus();
+      }
+    });
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = previousOverflow;
+      document.body.style.paddingRight = previousPaddingRight;
     };
   }, [isOpen]);
 
@@ -105,7 +128,7 @@ function Gallery() {
                 className="gallery-item"
                 key={`${item}-${index}`}
                 type="button"
-                onClick={() => openCarousel(index)}
+                onClick={(event) => openCarousel(index, event.currentTarget)}
                 aria-label={`Abrir imagen ${index + 1} de la galería`}
               >
                 <img src={item} alt={`Postre La Trufería ${index + 1}`} loading="lazy" />
@@ -134,6 +157,7 @@ function Gallery() {
             <button
               className="carousel-close"
               type="button"
+              ref={closeButtonRef}
               onClick={closeCarousel}
               aria-label="Cerrar carrusel"
             >
@@ -239,19 +263,49 @@ const galleryStyles = `
   box-shadow: var(--shadow-soft);
   aspect-ratio: 4 / 3;
   cursor: pointer;
+  cursor: zoom-in;
   padding: 0;
   background: transparent;
+}
+
+.gallery-item::after {
+  content: 'Toca para ampliar';
+  position: absolute;
+  right: 0.55rem;
+  bottom: 0.55rem;
+  border-radius: 999px;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 .gallery-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.35s ease;
+  transition: transform 0.35s ease, filter 0.35s ease;
 }
 
 .gallery-item:hover img {
   transform: scale(1.04);
+  filter: saturate(1.05);
+}
+
+.gallery-item:hover::after,
+.gallery-item:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery-item:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.85);
+  outline-offset: -3px;
 }
 
 .gallery-lightbox {
@@ -262,24 +316,28 @@ const galleryStyles = `
   place-items: center;
   z-index: 999;
   padding: 1rem;
+  animation: lightboxFadeIn 0.22s ease;
 }
 
 .gallery-carousel {
   position: relative;
-  width: min(980px, 100%);
+  width: min(1120px, 96vw);
   max-height: 92vh;
   display: grid;
   place-items: center;
-  padding: 0.85rem;
+  padding: 0.85rem 3.1rem 2.2rem;
   border-radius: 20px;
   background: rgba(255, 248, 251, 0.14);
   border: 1px solid rgba(255, 255, 255, 0.28);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  animation: lightboxPopIn 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .gallery-carousel img {
-  width: 100%;
+  width: auto;
+  max-width: 100%;
+  height: auto;
   max-height: 82vh;
   object-fit: contain;
   border-radius: 16px;
@@ -332,6 +390,36 @@ const galleryStyles = `
   letter-spacing: 0.02em;
 }
 
+@keyframes lightboxFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lightboxPopIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-lightbox,
+  .gallery-carousel,
+  .gallery-item img,
+  .gallery-item::after {
+    animation: none;
+    transition: none;
+  }
+}
+
 @media (max-width: 1024px) {
   .gallery-grid {
     grid-template-columns: 1fr 1fr;
@@ -357,6 +445,11 @@ const galleryStyles = `
     width: 40px;
     height: 40px;
     font-size: 1.8rem;
+  }
+
+  .gallery-carousel {
+    width: 100%;
+    padding: 0.6rem 2.6rem 2.1rem;
   }
 
   .carousel-arrow.left {

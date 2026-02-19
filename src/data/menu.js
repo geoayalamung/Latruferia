@@ -6,8 +6,8 @@ export const menuData = [
     imageAlt: 'Variedad de trufas',
     items: [
       {
-        name: 'Trufitas sabor oreo, limón, Nutella, coco, y pay de limón',
-        flavors: ['Oreo', 'Limón', 'Nutella', 'Coco', 'Pay de limón'],
+        name: 'Trufitas sabor Oreo, Nutella, Coco, Pay de limón',
+        flavors: ['Oreo',  'Nutella', 'Coco', 'Pay de limón'],
         description: 'Individual',
         price: '$7 c/u'
       },

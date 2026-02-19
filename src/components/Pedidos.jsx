@@ -80,6 +80,11 @@ function Pedidos() {
             <p>Recibe tu pedido listo para lucirse en tu evento o regalo.</p>
           </article>
         </div>
+        <div className="steps-simple" aria-label="Cómo pedir versión móvil">
+          <span>1. Elige</span>
+          <span>2. Confirma</span>
+          <span>3. Disfruta</span>
+        </div>
 
         <div className="pedidos-grid">
           <form className="card order-form" onSubmit={handleSubmit} noValidate>
@@ -191,6 +196,10 @@ const pedidosStyles = `
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.62rem;
   margin-bottom: 0.82rem;
+}
+
+.steps-simple {
+  display: none;
 }
 
 .step-card {
@@ -339,16 +348,26 @@ const pedidosStyles = `
 
 @media (max-width: 760px) {
   .steps-row {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x proximity;
-    padding-bottom: 0.18rem;
+    display: none;
   }
 
-  .step-card {
-    min-width: 170px;
-    scroll-snap-align: start;
-    flex: 0 0 auto;
+  .steps-simple {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.42rem;
+    margin-bottom: 0.82rem;
+  }
+
+  .steps-simple span {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    box-shadow: var(--shadow-soft);
+    color: var(--choco-900);
+    font-weight: 800;
+    font-size: 0.86rem;
+    text-align: center;
+    padding: 0.56rem 0.38rem;
   }
 
   .order-form-grid {

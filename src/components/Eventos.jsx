@@ -35,12 +35,17 @@ function Eventos() {
     <>
       <style>{eventosStyles}</style>
       <section className="section section-tint" id="eventos">
-        <div className="container">
-          <div className="section-head compact-head">
-            <h2>Eventos</h2>
-            <p>Montajes personalizados para cumpleaños, bodas, regalos y celebraciones especiales.</p>
+        <div className="best-hero" role="img" aria-label="Eventos de La Trufería">
+          <div className="best-hero-overlay">
+            <div className="best-hero-content">
+              <h2 className="best-hero-title">Eventos</h2>
+              <p className="best-hero-subtitle">
+                Montajes personalizados para cumpleaños, bodas, regalos y celebraciones especiales.
+              </p>
+            </div>
           </div>
-
+        </div>
+        <div className="container">
           <div className="eventos-hero card">
             <div className="eventos-copy">
               <p className="eventos-kicker">Servicio para eventos en Sahuayo</p>
@@ -265,6 +270,12 @@ const eventosStyles = `
 
   .eventos-mini-carousel {
     aspect-ratio: 16 / 10;
+    background: linear-gradient(180deg, rgba(248, 241, 247, 0.88), rgba(255, 255, 255, 0.95));
+  }
+
+  .eventos-mini-carousel img {
+    object-fit: contain;
+    object-position: center;
   }
 }
 `;

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import BestSellers from './components/BestSellers';
@@ -11,22 +12,64 @@ import Contacto from './components/Contacto';
 import Footer from './components/Footer';
 
 function App() {
+  useEffect(() => {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const sections = document.querySelectorAll('.reveal-section');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-inview');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.18, rootMargin: '0px 0px -8% 0px' }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    if (reducedMotion) {
+      sections.forEach((section) => section.classList.add('is-inview'));
+      return () => observer.disconnect();
+    }
+
+    const onPointerMove = (event) => {
+      const x = (event.clientX / window.innerWidth - 0.5) * 24;
+      const y = (event.clientY / window.innerHeight - 0.5) * 24;
+      document.documentElement.style.setProperty('--pointer-x', `${x.toFixed(2)}px`);
+      document.documentElement.style.setProperty('--pointer-y', `${y.toFixed(2)}px`);
+    };
+
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('pointermove', onPointerMove);
+    };
+  }, []);
 
   return (
     <>
       <style>{appStyles}</style>
     <div className="app">
+      <div className="fx-layer" aria-hidden="true">
+        <span className="fx-orb orb-a" />
+        <span className="fx-orb orb-b" />
+        <span className="fx-orb orb-c" />
+      </div>
       <Navbar />
       <main>
         <Hero />
-        <div className="section-wrap"><BestSellers /></div>
-        <div className="section-wrap"><Gallery /></div>
-        <div className="section-wrap"><Historia /></div>
-        <div className="section-wrap"><Menu /></div>
-        <div className="section-wrap"><Eventos /></div>
-        <div className="section-wrap"><Reviews /></div>
-        <div className="section-wrap"><Pedidos /></div>
-        <div className="section-wrap"><Contacto /></div>
+        <div className="section-wrap reveal-section delay-1"><BestSellers /></div>
+        <div className="section-wrap reveal-section delay-2"><Gallery /></div>
+        <div className="section-wrap reveal-section delay-3"><Historia /></div>
+        <div className="section-wrap reveal-section delay-1"><Menu /></div>
+        <div className="section-wrap reveal-section delay-2"><Eventos /></div>
+        <div className="section-wrap reveal-section delay-3"><Reviews /></div>
+        <div className="section-wrap reveal-section delay-1"><Pedidos /></div>
+        <div className="section-wrap reveal-section delay-2"><Contacto /></div>
       </main>
       <Footer />
     </div>
@@ -39,7 +82,7 @@ export default App;
 
 const appStyles = `
 
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Sora:wght@400;500;600;700;800&display=swap');
 
 :root {
   --bg: #FFF8FB;
@@ -60,6 +103,9 @@ const appStyles = `
   --shadow-soft: 0 10px 28px rgba(74, 42, 31, 0.1);
   --shadow-lift: 0 16px 34px rgba(74, 42, 31, 0.14);
   --font-title: 'Pacifico', 'Milkshake', cursive;
+  --font-body: 'Sora', 'Avenir Next', 'Segoe UI', sans-serif;
+  --pointer-x: 0px;
+  --pointer-y: 0px;
 }
 
 * {
@@ -73,7 +119,7 @@ html {
 
 body {
   margin: 0;
-  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
+  font-family: var(--font-body);
   min-height: 100vh;
   position: relative;
   isolation: isolate;
@@ -97,6 +143,7 @@ body {
   background-blend-mode: multiply, multiply, normal, normal;
   color: var(--text);
   line-height: 1.5;
+  overflow-x: hidden;
 }
 
 body::before {
@@ -116,6 +163,74 @@ body::before {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.app {
+  position: relative;
+  isolation: isolate;
+}
+
+.app > * {
+  position: relative;
+  z-index: 2;
+}
+
+.fx-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.fx-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0.42;
+  mix-blend-mode: screen;
+  animation: orbFloat 15s ease-in-out infinite;
+}
+
+.orb-a {
+  width: min(34vw, 520px);
+  aspect-ratio: 1;
+  background: radial-gradient(circle at 28% 28%, rgba(255, 246, 218, 0.88), rgba(242, 183, 198, 0.22) 58%, transparent 75%);
+  left: -11vw;
+  top: 8vh;
+  transform: translate(calc(var(--pointer-x) * 0.35), calc(var(--pointer-y) * 0.35));
+}
+
+.orb-b {
+  width: min(40vw, 600px);
+  aspect-ratio: 1;
+  background: radial-gradient(circle at 42% 35%, rgba(216, 198, 233, 0.8), rgba(168, 211, 240, 0.26) 58%, transparent 75%);
+  right: -15vw;
+  top: 42vh;
+  animation-duration: 18s;
+  animation-delay: -4s;
+  transform: translate(calc(var(--pointer-x) * -0.45), calc(var(--pointer-y) * -0.3));
+}
+
+.orb-c {
+  width: min(28vw, 440px);
+  aspect-ratio: 1;
+  background: radial-gradient(circle at 32% 34%, rgba(246, 226, 156, 0.62), rgba(242, 183, 198, 0.16) 56%, transparent 76%);
+  left: 40vw;
+  bottom: -15vh;
+  animation-duration: 20s;
+  animation-delay: -7s;
+  transform: translate(calc(var(--pointer-x) * 0.25), calc(var(--pointer-y) * -0.4));
+}
+
+@keyframes orbFloat {
+  0%,
+  100% {
+    margin-top: 0;
+  }
+  50% {
+    margin-top: -24px;
+  }
 }
 
 img {
@@ -247,14 +362,47 @@ img {
   width: min(1240px, calc(100% - 1.2rem));
   margin-inline: auto;
   margin-top: clamp(0.65rem, 1.8vw, 1.2rem);
+  transform: translateZ(0);
 }
 
 .section-wrap > .section {
   border: 1px solid rgba(199, 160, 214, 0.28);
-  border-radius: 24px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.42));
-  box-shadow: 0 8px 22px rgba(74, 42, 31, 0.08);
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.73), rgba(255, 255, 255, 0.48)),
+    linear-gradient(140deg, rgba(242, 183, 198, 0.08), transparent 28%, rgba(168, 211, 240, 0.08) 82%);
+  box-shadow: 0 16px 42px rgba(74, 42, 31, 0.11), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(4px);
   overflow: hidden;
+  transition: transform 0.55s cubic-bezier(.22,.61,.36,1), box-shadow 0.55s cubic-bezier(.22,.61,.36,1), border-color 0.42s ease;
+}
+
+.section-wrap.reveal-section > .section {
+  opacity: 0;
+  transform: translateY(34px) scale(0.985);
+}
+
+.section-wrap.reveal-section.is-inview > .section {
+  opacity: 1;
+  transform: none;
+}
+
+.section-wrap.reveal-section.delay-1 > .section {
+  transition-delay: 0.03s;
+}
+
+.section-wrap.reveal-section.delay-2 > .section {
+  transition-delay: 0.09s;
+}
+
+.section-wrap.reveal-section.delay-3 > .section {
+  transition-delay: 0.14s;
+}
+
+.section-wrap > .section:hover {
+  transform: translateY(-3px);
+  border-color: rgba(199, 160, 214, 0.42);
+  box-shadow: 0 22px 44px rgba(74, 42, 31, 0.13), inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .section-wrap > .section.section-tint {
@@ -311,6 +459,13 @@ img {
   border-radius: 18px;
   padding: 0.88rem;
   box-shadow: var(--shadow-soft);
+  transition: transform 0.35s cubic-bezier(.22,.61,.36,1), box-shadow 0.32s ease, border-color 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(199, 160, 214, 0.4);
+  box-shadow: var(--shadow-lift);
 }
 
 .badge {
@@ -333,6 +488,10 @@ textarea:focus-visible {
 }
 
 @media (max-width: 760px) {
+  .fx-orb {
+    opacity: 0.26;
+  }
+
   .section-wrap {
     width: min(1240px, calc(100% - 0.9rem));
     margin-top: 0.62rem;

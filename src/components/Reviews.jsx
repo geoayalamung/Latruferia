@@ -30,12 +30,15 @@ function Reviews() {
     <>
       <style>{reviewsStyles}</style>
     <section className="section" id="reviews">
-      <div className="container">
-        <div className="section-head">
-          <h2>Reseñas</h2>
-          <p>Lo que opinan nuestras clientas sobre nuestros postres.</p>
+      <div className="best-hero" role="img" aria-label="Reseñas de La Trufería">
+        <div className="best-hero-overlay">
+          <div className="best-hero-content">
+            <h2 className="best-hero-title">Reseñas</h2>
+            <p className="best-hero-subtitle">Lo que opinan nuestras clientas sobre nuestros postres.</p>
+          </div>
         </div>
-
+      </div>
+      <div className="container">
         <div className="reviews-marquee">
           <div className="reviews-track">
             <div className="reviews-group">

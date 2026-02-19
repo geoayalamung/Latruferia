@@ -35,14 +35,17 @@ function Menu() {
       <style>{menuStyles}</style>
 
       <section className="section" id="menu">
-        <div className="container">
-          <div className="section-head compact-head">
-            <h2>Menú</h2>
-            <p className="menu-subtitle">
-              Carta organizada por categorías para elegir rápido, comparar mejor y pedir con claridad.
-            </p>
+        <div className="best-hero" role="img" aria-label="Menú de La Trufería">
+          <div className="best-hero-overlay">
+            <div className="best-hero-content">
+              <h2 className="best-hero-title">Menu</h2>
+              <p className="best-hero-subtitle">
+                Carta organizada por categorías para elegir rápido, comparar mejor y pedir con claridad.
+              </p>
+            </div>
           </div>
-
+        </div>
+        <div className="container">
           <div className="menu-shell">
             <aside className="menu-rail">
               <p className="rail-kicker">Carta</p>

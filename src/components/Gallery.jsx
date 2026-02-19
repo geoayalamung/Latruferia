@@ -90,12 +90,15 @@ function Gallery() {
     <>
       <style>{galleryStyles}</style>
       <section className="section section-tint" id="galeria">
-        <div className="container">
-          <div className="section-head compact-head">
-            <h2>Galería</h2>
-            <p>Ideal para regalos, mesas de postres y eventos.</p>
+        <div className="best-hero" role="img" aria-label="Galería de La Trufería">
+          <div className="best-hero-overlay">
+            <div className="best-hero-content">
+              <h2 className="best-hero-title">Galeria</h2>
+              <p className="best-hero-subtitle">Ideal para regalos, mesas de postres y eventos.</p>
+            </div>
           </div>
-
+        </div>
+        <div className="container">
           <div className="gallery-grid">
             {visibleItems.map((item, index) => (
               <button
@@ -338,6 +341,16 @@ const galleryStyles = `
 @media (max-width: 760px) {
   .gallery-grid {
     grid-template-columns: 1fr;
+  }
+
+  .gallery-item {
+    min-height: 220px;
+    background: linear-gradient(180deg, rgba(248, 241, 247, 0.9), rgba(255, 255, 255, 0.95));
+  }
+
+  .gallery-item img {
+    object-fit: contain;
+    object-position: center;
   }
 
   .carousel-arrow {

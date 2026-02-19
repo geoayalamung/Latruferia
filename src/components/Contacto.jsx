@@ -35,12 +35,17 @@ function Contacto() {
     <>
       <style>{contactoStyles}</style>
       <section className="section section-tint" id="contacto">
-        <div className="container">
-          <div className="section-head compact-head">
-            <h2>Contacto</h2>
-            <p>Cotiza en minutos y asegura tu fecha de entrega para tu próximo evento.</p>
+        <div className="best-hero" role="img" aria-label="Contacto La Trufería">
+          <div className="best-hero-overlay">
+            <div className="best-hero-content">
+              <h2 className="best-hero-title">Contacto</h2>
+              <p className="best-hero-subtitle">
+                Cotiza en minutos y asegura tu fecha de entrega para tu próximo evento.
+              </p>
+            </div>
           </div>
-
+        </div>
+        <div className="container">
           <article className="card contact-offer">
             <p className="contact-kicker">Respuesta rápida por WhatsApp</p>
             <h3>Haz tu pedido hoy y recibe atención personalizada</h3>

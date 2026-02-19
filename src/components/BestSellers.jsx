@@ -37,14 +37,19 @@ function BestSellers() {
         <style>{bestSellersStyles}</style>
 
         <section className="section" id="best-sellers">
-          <div className="container">
-            <div className="section-head compact-head">
-
-              <h2 className="best-title">Los favoritos</h2>
-              <p className="best-subtitle">
-                Tres opciones que siempre se van rápido — ideales para antojo, regalo o evento.
-              </p>
+          <div className="best-hero" role="img" aria-label="Bestsellers de La Trufería">
+            <div className="best-hero-overlay">
+              <div className="best-hero-content">
+                <h2 className="best-hero-title">Los Favoritos</h2>
+                <p className="best-hero-subtitle">
+                  Los favoritos que siempre se agotan primero.
+                </p>
+              </div>
             </div>
+          </div>
+
+          <div className="container">
+
 
             <div className="best-grid" role="list" aria-label="Productos favoritos">
               {bestSellers.map((item) => (
@@ -82,7 +87,93 @@ function BestSellers() {
 export default BestSellers;
 
 const bestSellersStyles = `
-/* --- Best Sellers (más premium, más antojable) --- */
+.best-hero {
+  position: relative;
+  height: min(26vw, 170px);
+  min-height: 130px;
+  width: min(1160px, calc(100% - 2.2rem));
+  margin: 0 auto 1rem;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(74,42,31,0.14);
+  box-shadow: var(--shadow-soft);
+  background-color: #f8f3f8;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(236, 221, 241, 0.45) 0 34px,
+      rgba(250, 246, 248, 0.75) 34px 68px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(240, 228, 244, 0.3) 0 34px,
+      rgba(253, 249, 252, 0.72) 34px 68px
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.36), rgba(248, 241, 247, 0.22));
+  background-repeat: repeat;
+  background-size: auto;
+  background-blend-mode: multiply, multiply, normal;
+}
+
+.best-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.3) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(0.9rem, 2.2vw, 1.25rem) 1rem;
+}
+
+.best-hero-content {
+  text-align: center;
+  display: grid;
+  gap: clamp(0.38rem, 1.2vw, 0.55rem);
+  max-width: 900px;
+  padding-block: clamp(0.15rem, 0.8vw, 0.4rem);
+}
+
+.best-hero-title {
+  display: inline-block;
+  margin: 0 auto;
+  color: var(--choco-900);
+  font-size: clamp(1.5rem, 4vw, 2.8rem);
+  font-family: var(--font-title);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.04;
+  padding: 0.38rem 0.95rem 0.48rem;
+  border: 4px dotted var(--lavender-300);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.72);
+}
+
+.best-hero-subtitle {
+  margin: 0;
+  color: var(--choco-800);
+  font-size: clamp(0.92rem, 2vw, 1.2rem);
+  font-weight: 700;
+}
+
+.best-hero-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.best-hero-pill {
+  background: rgba(255,255,255,0.58);
+  backdrop-filter: blur(5px);
+  color: var(--choco-900);
+  border: 1px solid rgba(74,42,31,0.15);
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
 
 .best-kicker {
   display: inline-flex;
@@ -281,6 +372,28 @@ const bestSellersStyles = `
 
 /* Mobile: carrusel horizontal (más Wix / IG) */
 @media (max-width: 760px) {
+  .best-hero {
+    width: min(1160px, calc(100% - 1.3rem));
+    min-height: 128px;
+    border-radius: 18px;
+  }
+
+  .best-hero-pill {
+    font-size: 0.76rem;
+    padding: 0.36rem 0.62rem;
+  }
+
+  .best-image-wrap {
+    aspect-ratio: 5 / 4;
+    background: linear-gradient(180deg, rgba(248, 241, 247, 0.88), rgba(255, 255, 255, 0.96));
+  }
+
+  .best-image {
+    object-fit: contain;
+    object-position: center;
+    transform: none;
+  }
+
   .best-grid {
     grid-template-columns: 1fr;
     display: grid;

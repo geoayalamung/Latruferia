@@ -51,12 +51,15 @@ function Pedidos() {
     <>
       <style>{pedidosStyles}</style>
     <section className="section" id="pedidos">
-      <div className="container">
-        <div className="section-head compact-head">
-          <h2>Pedidos</h2>
-          <p>Te respondemos por WhatsApp para confirmar detalles y entrega.</p>
+      <div className="best-hero" role="img" aria-label="Pedidos en La Trufería">
+        <div className="best-hero-overlay">
+          <div className="best-hero-content">
+            <h2 className="best-hero-title">Pedidos</h2>
+            <p className="best-hero-subtitle">Te respondemos por WhatsApp para confirmar detalles y entrega.</p>
+          </div>
         </div>
-
+      </div>
+      <div className="container">
         <div className="steps-row" aria-label="Cómo pedir">
           <article className="step-card">
             <span className="step-number">01</span>

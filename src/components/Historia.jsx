@@ -32,24 +32,24 @@ function Historia() {
             ref={sectionRef}
             aria-labelledby="historia-title"
         >
+          <div className="best-hero" role="img" aria-label="Historia de La Trufería">
+            <div className="best-hero-overlay">
+              <div className="best-hero-content">
+                <h2 id="historia-title" className="best-hero-title">Nuestra Historia</h2>
+                <p className="best-hero-subtitle">
+                  Nacimos de un proyecto familiar y del gusto por la repostería.
+                </p>
+              </div>
+            </div>
+          </div>
           <div className="container">
             <div className="story-shell">
-              <header className="story-head section-head compact-head">
-
+              <header className="story-head">
                 <div className="story-headline-row">
-                  <h2 id="historia-title" className="story-title">
-                    Nuestra historia
-                  </h2>
-
                   <span className="story-badge" aria-label="Fundada en 2021">
-                  Desde 2021
-                </span>
+                    Desde 2021
+                  </span>
                 </div>
-
-                <p className="story-subtitle">
-                  Nacimos de un proyecto familiar y del gusto por la repostería: crear postres que se
-                  comparten, celebran y se quedan en la memoria.
-                </p>
               </header>
 
               <div className="story-grid">

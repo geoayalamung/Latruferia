@@ -88,36 +88,43 @@ function Contacto() {
           </article>
 
           <div className="contact-grid">
-            <article className="card contact-card">
-              <h4>Redes y contacto directo</h4>
-              <p>Resolvemos dudas, cotizaciones y pedidos por mensaje directo.</p>
-              <div className="contact-actions">
-                <a href={whatsappLink} target="_blank" rel="noreferrer" className="btn">
-                  <SocialIcon platform="whatsapp" />
-                  WhatsApp
-                </a>
-                <a href={phoneLink} className="btn btn-ghost">
-                  <SocialIcon platform="phone" />
-                  Llamar
-                </a>
+            <article className="card contact-card social-card">
+              <h4>Redes sociales</h4>
+              <p className="social-lead">
+                No te pierdas nuestros postres de la semana, nuevos sabores, eventos y promociones.
+              </p>
+              <div className="social-highlights" aria-label="Contenido en redes sociales">
+                <span>Postres semanales</span>
+                <span>Nuevos sabores</span>
+                <span>Eventos</span>
+                <span>Promos</span>
               </div>
-
-              <p className="social-title">Síguenos en redes:</p>
-              <div className="social-grid">
+              <p className="social-title">Síguenos en redes sociales</p>
+              <div className="social-grid social-grid-modern">
                 <a
                   href={instagramLink}
                   target="_blank"
                   rel="noreferrer"
-                  className="btn btn-ghost social-link social-pill"
+                  className="btn btn-ghost social-link social-pill social-pill-modern"
                 >
                   <SocialIcon platform="instagram" />
                   Instagram
                 </a>
-                <a href={facebookLink} target="_blank" rel="noreferrer" className="btn btn-ghost social-link social-pill">
+                <a
+                  href={facebookLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn btn-ghost social-link social-pill social-pill-modern"
+                >
                   <SocialIcon platform="facebook" />
                   Facebook
                 </a>
-                <a href={tiktokLink} target="_blank" rel="noreferrer" className="btn btn-ghost social-link social-pill">
+                <a
+                  href={tiktokLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn btn-ghost social-link social-pill social-pill-modern"
+                >
                   <SocialIcon platform="tiktok" />
                   TikTok
                 </a>
@@ -236,6 +243,13 @@ const contactoStyles = `
   align-content: start;
 }
 
+.social-card {
+  border: 1px solid rgba(199, 160, 214, 0.4);
+  background:
+    radial-gradient(circle at 10% 12%, rgba(246, 226, 156, 0.34), transparent 35%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(245, 233, 250, 0.8));
+}
+
 .contact-card h4 {
   margin: 0;
   color: var(--choco-900);
@@ -273,10 +287,42 @@ const contactoStyles = `
 }
 
 .social-title {
-  margin: 1.35rem 0 1.15rem;
+  margin: 0.95rem 0 1rem;
   color: var(--choco-900);
-  font-weight: 800;
-  font-size: 0.95rem;
+  font-weight: 700;
+  font-size: 0.94rem;
+}
+
+.social-lead {
+  margin: 0.45rem 0 0;
+  color: var(--choco-900);
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.social-highlights {
+  margin-top: 0.85rem;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.social-highlights span {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  border-radius: 999px;
+  padding: 0.34rem 0.65rem;
+  font-size: 0.79rem;
+  font-weight: 700;
+  color: var(--choco-900);
+  border: 1px solid rgba(74, 42, 31, 0.12);
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.social-highlights::-webkit-scrollbar {
+  display: none;
 }
 
 .social-grid {
@@ -298,6 +344,28 @@ const contactoStyles = `
   padding: 0.2rem 0.35rem;
   font-size: 0.8rem;
   font-weight: 700;
+}
+
+.social-grid-modern {
+  gap: 0.65rem;
+}
+
+.social-pill-modern {
+  border: 1px solid rgba(199, 160, 214, 0.55);
+  border-radius: 14px;
+  min-height: 46px;
+  background:
+    radial-gradient(circle at 12% 12%, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0)),
+    linear-gradient(135deg, rgba(243, 224, 248, 0.64), rgba(255, 255, 255, 0.94));
+  color: var(--choco-900);
+  box-shadow: 0 8px 22px rgba(74, 42, 31, 0.08);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.social-pill-modern:hover {
+  transform: translateY(-2px);
+  border-color: rgba(199, 160, 214, 0.9);
+  box-shadow: 0 12px 24px rgba(74, 42, 31, 0.14);
 }
 
 .social-icon {

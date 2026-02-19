@@ -140,19 +140,22 @@ const heroStyles = `
   justify-self: start;
   width: min(320px, 78vw);
   aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
   padding: 0.7rem;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.24);
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(4px);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .hero-logo {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   border-radius: 50%;
   filter: drop-shadow(0 8px 26px rgba(0, 0, 0, 0.35));
 }

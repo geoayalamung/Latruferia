@@ -65,6 +65,10 @@ const footerStyles = `
 
 .footer {
   position: relative;
+  margin-top: clamp(2rem, 5vw, 3.4rem);
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  overflow: hidden;
   border-top: 1px solid rgba(199, 160, 214, 0.32);
   background:
     repeating-linear-gradient(
@@ -85,11 +89,11 @@ const footerStyles = `
 }
 
 .footer-main {
-  padding: 3rem 0 1.9rem;
+  padding: 3.25rem 0 2.1rem;
   display: grid;
   grid-template-columns: 1.35fr 0.75fr 0.9fr;
   align-items: start;
-  gap: 2rem;
+  gap: 2.2rem;
 }
 
 .footer-main h4 {
@@ -132,7 +136,7 @@ const footerStyles = `
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 0.45rem;
+  gap: 0.6rem;
 }
 
 .footer-links a {
@@ -164,8 +168,9 @@ const footerStyles = `
 }
 
 .footer-address {
-  margin: 0 0 0.7rem;
+  margin: 0 0 0.8rem;
   color: var(--muted);
+  line-height: 1.5;
 }
 
 .map-wrap {
@@ -191,7 +196,7 @@ const footerStyles = `
 }
 
 .footer-bottom {
-  min-height: 68px;
+  min-height: 74px;
   border-top: 1px solid rgba(74, 42, 31, 0.12);
   display: flex;
   justify-content: space-between;
@@ -199,14 +204,14 @@ const footerStyles = `
   gap: 1rem;
   color: var(--muted);
   font-size: 0.9rem;
-  padding: 0.45rem 0 0.8rem;
+  padding: 0.75rem 0 1rem;
 }
 
 @media (max-width: 1024px) {
   .footer-main {
     grid-template-columns: 1fr;
-    gap: 1.3rem;
-    padding-top: 2.5rem;
+    gap: 1.45rem;
+    padding-top: 2.7rem;
   }
 
   .footer-logo {
@@ -220,9 +225,25 @@ const footerStyles = `
 }
 
 @media (max-width: 760px) {
+  .footer {
+    margin-top: 1.75rem;
+  }
+
   .footer-main {
-    gap: 1.1rem;
-    padding: 2.2rem 0 1.4rem;
+    gap: 1rem;
+    padding: 2.1rem 0 1.3rem;
+  }
+
+  .footer-main > section {
+    background: rgba(255, 255, 255, 0.62);
+    border: 1px solid rgba(74, 42, 31, 0.1);
+    border-radius: 16px;
+    padding: 0.9rem 0.9rem 1rem;
+  }
+
+  .footer-main h4 {
+    margin-bottom: 0.68rem;
+    font-size: 0.98rem;
   }
 
   .footer-logo {
@@ -238,16 +259,44 @@ const footerStyles = `
     font-size: 0.86rem;
   }
 
+  .footer-brand p {
+    margin-top: 0.75rem;
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .footer-links {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 0.75rem;
+  }
+
+  .footer-links a {
+    display: inline-block;
+    font-size: 0.94rem;
+  }
+
+  .footer-address {
+    font-size: 0.92rem;
+    margin-bottom: 0.65rem;
+  }
+
   .map-wrap {
-    height: 106px;
+    height: 120px;
   }
 
   .footer-bottom {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
-    text-align: left;
-    padding: 0.9rem 0;
+    text-align: center;
+    min-height: 62px;
+    gap: 0.25rem;
+    padding: 0.78rem 0 0.95rem;
+  }
+
+  .footer-bottom small {
+    font-size: 0.82rem;
+    line-height: 1.45;
   }
 }
 

@@ -1,7 +1,7 @@
 const bestSellers = [
   {
-    title: "Trufitas surtidas",
-    description: "Chocolate suave con sabores clásicos: Oreo, limón, Nutella y coco.",
+    title: "Trufas Surtidas",
+    description: "Chocolate suave con sabores clásicos: Oreo, Pay de limón, Nutella y Coco.",
     price: "$7 c/u",
     image: "/Images/Trufas/trufas.jpg",
     badge: "Recomendado",
@@ -49,7 +49,12 @@ function BestSellers() {
           </div>
 
           <div className="container">
-
+            <div className="best-marketing">
+              <p className="best-marketing-copy">
+                Elige uno de los favoritos y confirma tu pedido por WhatsApp en minutos.
+              </p>
+              <a href="#pedidos" className="best-marketing-link">Pedir favoritos</a>
+            </div>
 
             <div className="best-grid" role="list" aria-label="Productos favoritos">
               {bestSellers.map((item) => (
@@ -211,6 +216,41 @@ const bestSellersStyles = `
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
   margin-top: 1rem;
+}
+
+.best-marketing {
+  margin-top: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  padding: 0.9rem 1rem;
+  border-radius: 16px;
+  border: 1px solid rgba(74,42,31,0.14);
+  background: linear-gradient(120deg, rgba(255,255,255,0.88), rgba(245,236,247,0.7));
+  box-shadow: var(--shadow-soft);
+}
+
+.best-marketing-copy {
+  margin: 0;
+  color: var(--choco-800);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  max-width: 54ch;
+}
+
+.best-marketing-link {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(74,42,31,0.16);
+  background: linear-gradient(120deg, var(--lavender-100), rgba(255,248,251,0.96));
+  color: var(--choco-900);
+  font-weight: 800;
 }
 
 .best-card {
@@ -378,6 +418,41 @@ const bestSellersStyles = `
     border-radius: 18px;
   }
 
+  .best-hero-content {
+    gap: 0.42rem;
+    padding-inline: 0.3rem;
+  }
+
+  .best-hero-title {
+    font-size: clamp(1.26rem, 8vw, 1.72rem);
+    padding: 0.3rem 0.7rem 0.38rem;
+    border-width: 3px;
+  }
+
+  .best-hero-subtitle {
+    font-size: 0.9rem;
+    max-width: 29ch;
+    margin: 0 auto;
+  }
+
+  .best-marketing {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+    padding: 0.78rem 0.85rem;
+    margin-top: 0.8rem;
+  }
+
+  .best-marketing-copy {
+    font-size: 0.88rem;
+    text-align: center;
+  }
+
+  .best-marketing-link {
+    width: 100%;
+    min-height: 42px;
+  }
+
   .best-hero-pill {
     font-size: 0.76rem;
     padding: 0.36rem 0.62rem;
@@ -398,6 +473,30 @@ const bestSellersStyles = `
     grid-template-columns: 1fr;
     display: grid;
     gap: 0.75rem;
+  }
+
+  .best-card {
+    border-radius: 20px;
+  }
+
+  .best-badge,
+  .price-pill {
+    font-size: 0.74rem;
+  }
+
+  .best-body {
+    padding: 0.82rem 0.85rem 0.9rem;
+  }
+
+  .best-body h4 {
+    font-size: 1rem;
+  }
+
+  .best-body p {
+    margin-top: 0.46rem;
+    margin-bottom: 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
   }
 }
 

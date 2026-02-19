@@ -1,9 +1,11 @@
 
 const whatsappLink =
   'https://wa.me/523535367398?text=Hola%20La%20Trufer%C3%ADa%2C%20quiero%20hacer%20un%20pedido';
+const phoneLink = 'tel:+523535367398';
+const phoneLabel = '+52 353 536 7398';
 const instagramLink = 'https://www.instagram.com/latruferia.shy/';
 const facebookLink = 'https://www.facebook.com/latruferia.shy';
-const tiktokLink = 'https://www.tiktok.com/@latruferia.shy';
+const tiktokLink = 'https://www.tiktok.com/@latruferia92';
 const emailAddress = 'latruferiasahuayo@gmail.com';
 
 function SocialIcon({ platform }) {
@@ -68,25 +70,32 @@ function Contacto() {
           <div className="contact-grid">
             <article className="card contact-card">
               <h4>Redes y contacto directo</h4>
-              <p>Si prefieres, también puedes escribirnos por correo o redes sociales.</p>
+              <p>Resolvemos dudas, cotizaciones y pedidos por mensaje directo.</p>
               <div className="contact-actions">
                 <a href={whatsappLink} target="_blank" rel="noreferrer" className="btn">
                   WhatsApp
                 </a>
+                <a href={phoneLink} className="btn btn-ghost">
+                  Llamar
+                </a>
+              </div>
+
+              <p className="social-title">Síguenos en redes:</p>
+              <div className="social-grid">
                 <a
                   href={instagramLink}
                   target="_blank"
                   rel="noreferrer"
-                  className="btn btn-ghost social-link"
+                  className="btn btn-ghost social-link social-pill"
                 >
                   <SocialIcon platform="instagram" />
                   Instagram
                 </a>
-                <a href={facebookLink} target="_blank" rel="noreferrer" className="btn btn-ghost social-link">
+                <a href={facebookLink} target="_blank" rel="noreferrer" className="btn btn-ghost social-link social-pill">
                   <SocialIcon platform="facebook" />
                   Facebook
                 </a>
-                <a href={tiktokLink} target="_blank" rel="noreferrer" className="btn btn-ghost social-link">
+                <a href={tiktokLink} target="_blank" rel="noreferrer" className="btn btn-ghost social-link social-pill">
                   <SocialIcon platform="tiktok" />
                   TikTok
                 </a>
@@ -104,6 +113,12 @@ function Contacto() {
                 </li>
                 <li>
                   <strong>Entrega:</strong> Servicio a domicilio en Sahuayo.
+                </li>
+                <li>
+                  <strong>Teléfono:</strong>{' '}
+                  <a href={phoneLink} className="info-email">
+                    {phoneLabel}
+                  </a>
                 </li>
                 <li>
                   <strong>Correo:</strong>{' '}
@@ -180,11 +195,14 @@ const contactoStyles = `
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
+  align-items: stretch;
 }
 
 .contact-card {
   border-radius: 20px;
-  padding: 1.1rem;
+  padding: 1.15rem;
+  display: grid;
+  align-content: start;
 }
 
 .contact-card h4 {
@@ -204,10 +222,31 @@ const contactoStyles = `
   flex-wrap: wrap;
 }
 
+.social-title {
+  margin: 1rem 0 0.4rem;
+  color: var(--choco-900);
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
 .social-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  justify-content: center;
+  gap: 0.38rem;
+}
+
+.social-pill {
+  min-height: 42px;
+  padding: 0.5rem 0.45rem;
+  font-size: 0.88rem;
+  font-weight: 700;
 }
 
 .social-icon {
@@ -246,6 +285,22 @@ const contactoStyles = `
 
   .contact-card {
     padding: 0.95rem;
+  }
+
+  .contact-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .social-grid {
+    grid-template-columns: 1fr;
+    gap: 0.48rem;
+  }
+
+  .social-pill {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0.56rem 0.7rem;
   }
 }
 

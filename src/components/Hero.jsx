@@ -21,6 +21,10 @@ function Hero() {
       </video>
       <div className="hero-overlay" />
       <div className="container hero-grid">
+        <aside className="hero-logo-wrap" aria-label="La Truferia logo">
+          <img className="hero-logo" src="/Images/la-truferia-logo.png" alt="La Truferia" />
+        </aside>
+
         <div className="hero-content">
           <h1>Postres que se antojan desde la primera vista</h1>
           <p className="hero-copy">Trufas, pays y tartas para regalos y eventos.</p>
@@ -35,15 +39,11 @@ function Hero() {
           </div>
 
           <div className="hero-pills" aria-label="Beneficios">
-            <span>Pedidos con 2 días de anticipación</span>
-            <span>Temática a elegir</span>
+            <span>Pedidos para eventos</span>
+            <span>Detalles personalizados</span>
             <span>Hecho con cariño</span>
           </div>
         </div>
-
-        <aside className="hero-logo-wrap" aria-label="La Truferia logo">
-          <img className="hero-logo" src="/Images/la-truferia-logo.png" alt="La Truferia" />
-        </aside>
       </div>
     </section>
     </>
@@ -86,7 +86,7 @@ const heroStyles = `
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-columns: 0.85fr 1.15fr;
   gap: 1.2rem;
   align-items: end;
   padding: 8rem 0 4.3rem;
@@ -121,10 +121,10 @@ const heroStyles = `
 }
 
 .hero-pills {
-  margin-top: 1rem;
+  margin-top: 0.95rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.52rem;
 }
 
 .hero-pills span {
@@ -137,7 +137,7 @@ const heroStyles = `
 }
 
 .hero-logo-wrap {
-  justify-self: end;
+  justify-self: start;
   width: min(320px, 78vw);
   aspect-ratio: 1 / 1;
   padding: 0.7rem;
@@ -160,18 +160,31 @@ const heroStyles = `
 @media (max-width: 1024px) {
   .hero-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
-    padding-top: 7.4rem;
+    gap: 0.95rem;
+    padding-top: 7.1rem;
+    justify-items: center;
   }
 
   .hero-logo-wrap {
-    justify-self: start;
+    order: 1;
+    justify-self: center;
+  }
+
+  .hero-content {
+    order: 2;
+    text-align: center;
+    display: grid;
+    justify-items: center;
+  }
+
+  .hero-copy {
+    max-width: 34ch;
   }
 }
 
 @media (max-width: 760px) {
   .hero {
-    min-height: 76vh;
+    min-height: 82vh;
   }
 
   .hero-video {
@@ -183,13 +196,13 @@ const heroStyles = `
   }
 
   .hero-content h1 {
-    max-width: 18ch;
-    font-size: clamp(1.95rem, 9vw, 2.55rem);
+    max-width: 14.5ch;
+    font-size: clamp(1.88rem, 8.6vw, 2.45rem);
   }
 
   .hero-copy {
-    margin-bottom: 1.05rem;
-    font-size: 1rem;
+    margin: 0.78rem 0 1rem;
+    font-size: 0.98rem;
   }
 
   .hero-actions {
@@ -204,17 +217,34 @@ const heroStyles = `
   }
 
   .hero-pills {
-    gap: 0.44rem;
+    justify-content: center;
+    gap: 0.4rem;
+    max-width: min(360px, 100%);
   }
 
   .hero-pills span {
-    font-size: 0.78rem;
-    padding: 0.3rem 0.58rem;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.55rem;
   }
 
   .hero-logo-wrap {
-    justify-self: center;
-    width: min(190px, 52vw);
+    width: min(186px, 52vw);
+    padding: 0.48rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-grid {
+    padding-top: 6.8rem;
+    padding-bottom: 3.2rem;
+  }
+
+  .hero-logo-wrap {
+    width: min(164px, 48vw);
+  }
+
+  .hero-content h1 {
+    font-size: clamp(1.74rem, 8.7vw, 2.16rem);
   }
 }
 

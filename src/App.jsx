@@ -11,6 +11,79 @@ import Pedidos from './components/Pedidos';
 import Contacto from './components/Contacto';
 import Footer from './components/Footer';
 
+const sprinklePalette = [
+  '#f7b8cc', // baby pink
+  '#cbb3ea', // lavender
+  '#bdebd9', // mint
+  '#f6dfa2', // butter yellow
+  '#b8dfff', // sky blue
+  '#ffd3ba', // peach
+];
+
+const randomFromSeed = (seed) => {
+  const next = (seed * 1664525 + 1013904223) >>> 0;
+  return [next, next / 0xffffffff];
+};
+
+const createSprinkles = () => {
+  const cols = 12;
+  const rows = 8;
+  let seed = 4242;
+  const sprinkles = [];
+
+  for (let row = 0; row < rows; row += 1) {
+    for (let col = 0; col < cols; col += 1) {
+      let r;
+
+      [seed, r] = randomFromSeed(seed);
+      const jitterX = (r - 0.5) * 4.6;
+
+      [seed, r] = randomFromSeed(seed);
+      const jitterY = (r - 0.5) * 4.6;
+
+      [seed, r] = randomFromSeed(seed);
+      const width = 12 + Math.round(r * 4);
+
+      [seed, r] = randomFromSeed(seed);
+      const height = 3 + Math.round(r);
+
+      [seed, r] = randomFromSeed(seed);
+      const rotation = -68 + Math.round(r * 136);
+
+      [seed, r] = randomFromSeed(seed);
+      const duration = 11 + Math.round(r * 7);
+
+      [seed, r] = randomFromSeed(seed);
+      const paletteIndex = Math.floor(r * sprinklePalette.length) % sprinklePalette.length;
+
+      [seed, r] = randomFromSeed(seed);
+      const pointerX = (0.02 + r * 0.05).toFixed(3);
+
+      [seed, r] = randomFromSeed(seed);
+      const pointerY = (0.02 + r * 0.05).toFixed(3);
+
+      const left = ((col + 0.5) * (100 / cols) + jitterX).toFixed(2);
+      const top = ((row + 0.5) * (100 / rows) + jitterY).toFixed(2);
+
+      sprinkles.push({
+        left: `${Math.max(4, Math.min(96, Number(left)))}%`,
+        top: `${Math.max(5, Math.min(95, Number(top)))}%`,
+        rot: `${rotation}deg`,
+        color: sprinklePalette[paletteIndex],
+        w: `${width}px`,
+        h: `${height}px`,
+        dur: `${duration}s`,
+        px: `${pointerX}`,
+        py: `${pointerY}`
+      });
+    }
+  }
+
+  return sprinkles;
+};
+
+const bgSprinkles = createSprinkles();
+
 function App() {
   useEffect(() => {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -58,6 +131,23 @@ function App() {
         <span className="fx-orb orb-a" />
         <span className="fx-orb orb-b" />
         <span className="fx-orb orb-c" />
+        {bgSprinkles.map((sprinkle, index) => (
+          <span
+            key={`sprinkle-${index}`}
+            className="fx-sprinkle"
+            style={{
+              '--left': sprinkle.left,
+              '--top': sprinkle.top,
+              '--rot': sprinkle.rot,
+              '--color': sprinkle.color,
+              '--w': sprinkle.w,
+              '--h': sprinkle.h,
+              '--dur': sprinkle.dur,
+              '--px': sprinkle.px,
+              '--py': sprinkle.py
+            }}
+          />
+        ))}
       </div>
       <Navbar />
       <main>
@@ -125,22 +215,14 @@ body {
   isolation: isolate;
   background-color: var(--bg);
   background-image:
-    repeating-linear-gradient(
-      45deg,
-      rgba(245, 228, 235, 0.17) 0 36px,
-      rgba(251, 242, 234, 0.13) 36px 72px
-    ),
-    repeating-linear-gradient(
-      -45deg,
-      rgba(226, 209, 233, 0.2) 0 36px,
-      rgba(249, 239, 251, 0.14) 36px 72px
-    ),
-    linear-gradient(180deg, rgba(255, 252, 248, 0.36), rgba(247, 237, 241, 0.24)),
-    linear-gradient(135deg, #fffdf8 0%, #faefe8 46%, #fffefc 100%);
-  background-repeat: repeat;
-  background-size: auto;
+    radial-gradient(130% 85% at 0% 0%, rgba(255, 214, 226, 0.16), transparent 52%),
+    radial-gradient(120% 90% at 100% 8%, rgba(194, 223, 255, 0.14), transparent 56%),
+    radial-gradient(130% 86% at 52% 100%, rgba(255, 228, 183, 0.14), transparent 58%),
+    linear-gradient(160deg, #fffaf4 0%, #fff8f0 38%, #fff9f6 70%, #fffdf9 100%);
+  background-repeat: no-repeat;
+  background-size: 860px 620px, 900px 640px, 920px 660px, 100% 100%;
   background-attachment: fixed;
-  background-blend-mode: multiply, multiply, normal, normal;
+  background-blend-mode: normal, normal, normal, normal;
   color: var(--text);
   line-height: 1.5;
   overflow-x: hidden;
@@ -149,13 +231,13 @@ body {
 body::before {
   content: '';
   position: fixed;
-  inset: -32px;
+  inset: -24px;
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(120% 110% at 8% 12%, rgba(255, 252, 248, 0.36), transparent 58%),
-    radial-gradient(110% 120% at 92% 20%, rgba(236, 214, 242, 0.18), transparent 60%),
-    linear-gradient(180deg, rgba(255, 252, 248, 0.14), rgba(255, 252, 248, 0.04));
+    radial-gradient(110% 100% at 8% 12%, rgba(255, 245, 235, 0.42), transparent 58%),
+    radial-gradient(100% 100% at 90% 16%, rgba(238, 225, 255, 0.25), transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
   filter: blur(12px);
   transform: translateZ(0);
 }
@@ -187,9 +269,23 @@ a {
   position: absolute;
   border-radius: 50%;
   filter: blur(2px);
-  opacity: 0.42;
+  opacity: 0.2;
   mix-blend-mode: screen;
   animation: orbFloat 15s ease-in-out infinite;
+}
+
+.fx-sprinkle {
+  position: absolute;
+  left: var(--left);
+  top: var(--top);
+  width: var(--w);
+  height: var(--h);
+  border-radius: 3px;
+  background: var(--color);
+  opacity: 0.68;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.36), 0 1px 2px rgba(74, 42, 31, 0.06);
+  transform: translate(calc(var(--pointer-x) * var(--px)), calc(var(--pointer-y) * var(--py))) rotate(var(--rot));
+  animation: sprinkleBob var(--dur) ease-in-out infinite;
 }
 
 .orb-a {
@@ -230,6 +326,18 @@ a {
   }
   50% {
     margin-top: -24px;
+  }
+}
+
+@keyframes sprinkleBob {
+  0% {
+    margin-top: 0;
+  }
+  50% {
+    margin-top: -3px;
+  }
+  100% {
+    margin-top: 0;
   }
 }
 

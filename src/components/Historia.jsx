@@ -62,7 +62,7 @@ function Historia() {
 
                 <div className="story-content">
                   <p>
-                    La Trufería nació en 2021de un proyecto escolar y familiar, inspirado en el amor por la repostería y en la magia que los postres aportan a los momentos especiales: cumpleaños, bodas, celebraciones o simplemente una convivencia de fin de semana.
+                    La Trufería nació en 2021 de un proyecto escolar y familiar, inspirado en el amor por la repostería y en la magia que los postres aportan a los momentos especiales: cumpleaños, bodas, celebraciones o simplemente una convivencia de fin de semana.
                   </p>
 
                   <p>

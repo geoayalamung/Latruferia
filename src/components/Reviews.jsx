@@ -34,7 +34,7 @@ function Reviews() {
         <div className="best-hero-overlay">
           <div className="best-hero-content">
             <h2 className="best-hero-title">Reseñas</h2>
-            <p className="best-hero-subtitle">Lo que opinan nuestras clientes sobre nuestros postres.</p>
+            <p className="best-hero-subtitle">Lo que opinan nuestros clientes.</p>
           </div>
         </div>
       </div>

@@ -18,7 +18,21 @@ const packageInfo = [
     title: "Eventos",
     price: "Desde $450",
     desc: "Pedidos grandes y personalizados.",
-    items: ["Tarta con fruta grande $450", "Cotización por cantidad y temática"],
+    items: [
+      "Tarta con fruta grande $450",
+      "Cotización por cantidad y temática",
+      "Paquete para 100 personas: $1,800",
+    ],
+    extraItems: [
+      "Paquete de 100 personas incluye:",
+      "Trufitas artesanales: 40 piezas (decoradas según la temática)",
+      "Mini donitas rellenas: 50 piezas (personalizadas para tu ocasión)",
+      "Mini tartas: 40 piezas",
+      "Panesitos de naranja o besos de nuez: 50 bolsitas (4 piezas por bolsita)",
+      "Gelatina individual con tapa (vasito #10): 25 piezas (frutas o mosaico)",
+      "Fresas con crema (vasito desechable #4): 25 piezas",
+    ],
+    detailsLabel: "Ver mas del paquete",
   },
 ];
 
@@ -114,8 +128,8 @@ function Menu() {
               <p>Información rápida para elegir por tipo de pedido.</p>
             </div>
 
-            <div className="menu-extra-grid">
-              {packageInfo.map((pack) => (
+              <div className="menu-extra-grid">
+                {packageInfo.map((pack) => (
                 <article className="menu-extra-card" key={pack.title}>
                   <div className="menu-extra-top">
                     <h4>{pack.title}</h4>
@@ -127,6 +141,25 @@ function Menu() {
                       <li key={entry}>{entry}</li>
                     ))}
                   </ul>
+                  {(pack.extraItems ?? []).length > 0 ? (
+                    <>
+                      <details className="menu-extra-more menu-extra-more-desktop">
+                        <summary>{pack.detailsLabel ?? "Ver más"}</summary>
+                        <ul>
+                          {pack.extraItems.map((entry) => (
+                            <li key={`${pack.title}-${entry}`}>{entry}</li>
+                          ))}
+                        </ul>
+                      </details>
+                      <div className="menu-extra-more menu-extra-more-mobile" aria-label={`Detalle de ${pack.title}`}>
+                        <ul>
+                          {pack.extraItems.map((entry) => (
+                            <li key={`${pack.title}-mobile-${entry}`}>{entry}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </>
+                  ) : null}
                 </article>
               ))}
             </div>
@@ -528,6 +561,7 @@ const menuStyles = `
   font-size: .8rem;
 }
 
+
 .menu-extra-card ul {
   margin: .5rem 0 0;
   padding-left: 1rem;
@@ -535,6 +569,51 @@ const menuStyles = `
   font-size: .8rem;
   display: grid;
   gap: .2rem;
+}
+
+.menu-extra-more {
+  margin-top: .44rem;
+  border-top: 1px dashed rgba(74, 42, 31, .2);
+  padding-top: .36rem;
+}
+
+.menu-extra-more summary {
+  cursor: pointer;
+  color: var(--choco-900);
+  font-size: .8rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  margin-top: .1rem;
+  padding: .24rem .58rem;
+  border-radius: 999px;
+  border: 1px solid rgba(74, 42, 31, .16);
+  background: linear-gradient(180deg, rgba(255, 242, 208, .9), rgba(255, 255, 255, .95));
+  box-shadow: 0 6px 14px rgba(74, 42, 31, .08);
+}
+
+.menu-extra-more summary::after {
+  content: "+";
+  font-size: .88rem;
+  line-height: 1;
+}
+
+.menu-extra-more[open] summary::after {
+  content: "-";
+}
+
+.menu-extra-more ul {
+  margin: .42rem 0 0;
+  padding-left: 1rem;
+  color: var(--muted);
+  font-size: .8rem;
+  display: grid;
+  gap: .2rem;
+}
+
+.menu-extra-more-mobile {
+  display: none;
 }
 
 @media (max-width: 980px) {
@@ -564,6 +643,7 @@ const menuStyles = `
   .menu-extra-grid {
     grid-template-columns: 1fr 1fr;
   }
+
 }
 
 @media (max-width: 760px) {
@@ -704,6 +784,14 @@ const menuStyles = `
 
   .menu-extra-head p {
     font-size: .82rem;
+  }
+
+  .menu-extra-more-desktop {
+    display: none;
+  }
+
+  .menu-extra-more-mobile {
+    display: block;
   }
 }
 

@@ -135,7 +135,7 @@ function Contacto() {
               <h4>Información</h4>
               <ul className="info-list">
                 <li>
-                  <strong>Ubicación:</strong> Sahuayo,Michoacan
+                  <strong>Ubicación:</strong> Sahuayo,Michoacán
                 </li>
                 <li>
                   <strong>Entrega:</strong> Servicio a domicilio en Sahuayo.

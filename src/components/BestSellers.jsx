@@ -26,11 +26,6 @@ const bestSellers = [
 ];
 
 function BestSellers() {
-  const onQuickOrder = (item) => {
-    // Solo UX por ahora (puedes conectarlo después)
-    // Ej: abrir WhatsApp con mensaje prellenado
-    // window.open(`https://wa.me/52XXXXXXXXXX?text=${encodeURIComponent(`Hola La Trufería, quiero pedir: ${item.title}`)}`, "_blank");
-  };
 
   return (
       <>
@@ -42,7 +37,7 @@ function BestSellers() {
               <div className="best-hero-content">
                 <h2 className="best-hero-title">Los Favoritos</h2>
                 <p className="best-hero-subtitle">
-                  Los favoritos que siempre se agotan primero.
+                  Los que siempre se agotan primero.
                 </p>
               </div>
             </div>

@@ -40,7 +40,7 @@ function Menu() {
             <div className="best-hero-content">
               <h2 className="best-hero-title">Menu</h2>
               <p className="best-hero-subtitle">
-                Carta organizada por categorías para elegir rápido, comparar mejor y pedir con claridad.
+                Carta organizada por categorías para que elijas fácilmente, compares opciones y realices tu pedido con claridad.
               </p>
             </div>
           </div>

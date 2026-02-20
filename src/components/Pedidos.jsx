@@ -141,7 +141,7 @@ function Pedidos() {
                   <option value="">Selecciona una opción</option>
                   <option value="Trufas">Trufas</option>
                   <option value="Tartas">Tartas</option>
-                  <option value="Minidonas">Minidonas</option>
+                  <option value="Minidonas">Mini donitas</option>
                   <option value="Gelatinas">Gelatinas</option>
                   <option value="Panesitos">Panesitos</option>
                   <option value="Besos de Nuez">Besos de Nuez</option>
@@ -183,9 +183,10 @@ function Pedidos() {
           <aside className="card order-aside">
             <h4>Tips para un pedido perfecto</h4>
             <ul>
-              <li>Pide con mínimo 2 días de anticipación.</li>
-              <li>Cuéntanos tu temática para personalizar.</li>
-              <li>Si es evento, indica horario exacto de entrega.</li>
+              <li>Para pedidos personalizados, realiza tu pedido con al menos 2 días de anticipación.</li>
+              <li>Cuéntanos tu idea o temática y nosotros nos encargamos del resto.</li>
+              <li>Si es para un evento, indícanos el horario exacto de entrega.
+              </li>
             </ul>
           </aside>
         </div>

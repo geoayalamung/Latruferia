@@ -62,16 +62,11 @@ function Historia() {
 
                 <div className="story-content">
                   <p>
-                    La truferia nació en 2021 de un proyecto escolar, familiar y el gusto por la
-                    repostería, la manera en que se comparte cuando hay una ocasión especial, un
-                    cumpleaños, bodas, o simplemente una convivencia de fin de semana.
+                    La Trufería nació en 2021de un proyecto escolar y familiar, inspirado en el amor por la repostería y en la magia que los postres aportan a los momentos especiales: cumpleaños, bodas, celebraciones o simplemente una convivencia de fin de semana.
                   </p>
 
                   <p>
-                    La presentación con cada detalle es una muestra de la dedicación y cariño con la
-                    que se elabora un postre, desde la elección de los ingredientes, técnicas y
-                    cuidados de horneo, frutas frescas en el punto perfecto de maduración o en
-                    mermelada.
+                    La presentación y el cuidado en cada detalle reflejan la dedicación y el cariño con los que se elabora cada postre, desde la selección de ingredientes de alta calidad, técnicas de horneado y frutas frescas en su punto ideal de maduración, complementadas con mermeladas que realzan el sabor.
                   </p>
 
                   <ul className="story-chips" aria-label="Valores">

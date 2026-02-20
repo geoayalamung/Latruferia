@@ -47,10 +47,10 @@ export const menuData = [
     ]
   },
   {
-    category: 'MiniDonas',
-    description: 'Mini donas rellenas y cubiertas con chocolate.',
+    category: 'Mini Donitas',
+    description: 'Mini donitas rellenas y cubiertas con chocolate.',
     image: '/Images/MiniDonas/mindonas2.png',
-    imageAlt: 'Mini donas cubiertas de chocolate',
+    imageAlt: 'Mini donitas cubiertas de chocolate',
     items: [
       {
         name: 'Mini donitas rellenas, cubiertas de chocolate',
